@@ -1,4 +1,4 @@
-package org.saravana.boot.app;
+package org.saravana.boot.controller;
 
 import java.util.Arrays;
 import java.util.List;
