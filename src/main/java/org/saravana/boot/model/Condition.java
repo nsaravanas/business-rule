@@ -1,0 +1,5 @@
+package org.saravana.boot.model;
+
+public enum Condition {
+	IS_NULL, NOT_NULL, IS_EMPTY, NOT_EMPTY, EQUALS, NOT_EQUALS, GREATER_THAN, LESS_THAN, GREATER_THAN_OR_EQUALS, LESS_THAN_OR_EQUALS, IN, NOT_IN
+}
