@@ -23,20 +23,22 @@
 
 	<div class="container">
 
+		<div class="row">
+			<div class="col-sm-10"></div>
+			<div class="col-sm-1" align="right">
+				<button type="button" class="btn btn-info btn-md">Role</button>
+			</div>
+			<div class="col-sm-1" align="left">
+				<select data-ng-model="model.user" data-ng-change="reload({{model.user}})" class="form-control">
+					<option data-ng-selected="{{model.user}}" data-ng-repeat="t in model.types">{{t}}</option>
+				</select>
+			</div>
+		</div>
+
 		<div class="page-header">
 			<h1>Drool Rule Maker</h1>
 		</div>
 
-
-		<div class="row" id="userType" align="right">
-			<div class="col-md-4" align="right">
-				<h4>
-					Select User Type: <select data-ng-model="model.user" data-ng-change="reload({{model.user}})" class="form-control">
-						<option data-ng-selected="{{model.user}}" data-ng-repeat="t in model.types">{{t}}</option>
-					</select>
-				</h4>
-			</div>
-		</div>
 		<div class="row">
 			<div class="panel-group">
 
@@ -70,31 +72,35 @@
 										data-ng-show="model.user == 'DEV'" class="form-control" /></td>
 								</tr>
 								<tr>
+
 									<td>
-										<button class="btn btn-primary" data-ng-disabled="model.user == 'DEV'"
-											data-ng-click="addField(data.criteria, 0)">Add Row</button>
+										<div class="btn-group">
+											<button class="btn btn-primary" data-ng-disabled="model.user == 'DEV'"
+												data-ng-click="addField(data.criteria, 0)">Add Row</button>
+											<button class="btn btn-success" data-ng-click="saveCriteria(data.criteria)">Save Criteria</button>
+										</div>
 									</td>
-									<td>
-										<button class="btn btn-success" data-ng-click="saveCriteria(data.criteria)">Save Criteria</button>
-									</td>
+									<td></td>
+									<td></td>
 								</tr>
 							</tbody>
 						</table>
 					</div>
-				</div>
-				<div class="row">
-					<div class="container-fluid">
-						<div class="row">
-							<div class="col-md-4" style="background-color: yellow;"></div>
-							<div class="col-md-4" style="background-color: green;"></div>
-							<div class="col-md-4" style="background-color: red;"></div>
-						</div>
-					</div>
-				</div>
-				<div class="row">
 					<div class="panel-footer">Panel Footer</div>
 				</div>
 			</div>
+		</div>
+		<div class="row">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-4" style="background-color: yellow;"></div>
+					<div class="col-md-4" style="background-color: green;"></div>
+					<div class="col-md-4" style="background-color: red;"></div>
+				</div>
+			</div>
+		</div>
+		<div class="page-footer">
+			<h1>Drool Rule Maker</h1>
 		</div>
 	</div>
 </body>
