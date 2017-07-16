@@ -5,12 +5,19 @@ app.controller('ruleController', [
 
 			$scope.model = {
 				data : [],
-				selected : {}
+				selected : {},
+				conditions : []
 			};
 
 			var rules = function() {
 				ruleService.getRules().then(function(response) {
 					$scope.model.data = response.data;
+				});
+			};
+
+			var loadConditions = function() {
+				ruleService.getConditions().then(function(response) {
+					$scope.model.conditions = response.data;
 				});
 			};
 
@@ -39,15 +46,28 @@ app.controller('ruleController', [
 				$scope.model.selected = {};
 			};
 
+			$scope.deleteField = function(criteria, index) {
+				console.log(index);
+				$scope.model.data[0].criteria.fields.splice(index, 1);
+			};
+
+			$scope.addField = function(criteria, index) {
+				console.log(index);
+				criteria.fields.push({
+					'name' : '',
+					'condition' : '',
+					'value' : ''
+				});
+			};
+
+			$scope.saveCriteria = function(criteria) {
+				console.log('Criteria');
+				console.log(JSON.stringify(criteria));
+				$scope.model.data[0].criteria = criteria;
+			};
+
+			// init
+			loadConditions();
 			rules();
-
-			$scope.currentJobIndex = 0;
-
-			$scope.showNext = function(index) {
-				$scope.currentJobIndex = ++index;
-			};
-			$scope.hideThis = function(index) {
-				$scope.currentJobIndex = --index;
-			};
 
 		} ]);

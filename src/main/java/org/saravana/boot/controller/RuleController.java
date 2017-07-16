@@ -25,6 +25,9 @@ public class RuleController {
 		for (int i = 0; i < 5; i++) {
 			Field f = createField();
 			f.setId(i);
+			f.setField(f.getField() + i);
+			f.setName(f.getName() + i);
+			f.setValue(f.getValue() + i);
 			fields.add(f);
 		}
 
@@ -76,6 +79,11 @@ public class RuleController {
 			rules.add(rule);
 		}
 		return rules;
+	}
+
+	@RequestMapping(value = "/conditions", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public Condition[] getConditions() {
+		return Condition.values();
 	}
 
 }

@@ -14,4 +14,11 @@ app.service('ruleService', function($http) {
 			url : '/rules'
 		});
 	};
+
+	this.getConditions = function() {
+		return $http({
+			method : 'GET',
+			url : '/conditions'
+		});
+	}
 });

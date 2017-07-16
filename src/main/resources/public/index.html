@@ -21,17 +21,23 @@
 			</thead>
 			<tbody>
 				<tr data-ng-repeat="field in model.data[0].criteria.fields track by $index">
-					<td><input type="text" value="{{field.name}}" data-ng-readonly='!($index == editName)'
-						data-ng-dblclick="editName = $index" /></td>
-					<td><input type="text" value="{{field.condition}}" data-ng-readonly='!($index == editCondition)'
-						data-ng-dblclick="editCondition = $index" /></td>
-					<td><input type="text" value="{{field.value}}" data-ng-readonly='!($index == editValue)'
-						data-ng-dblclick="editValue = $index" /></td>
-					<td><button class="btn-primary btn-xs add" data-ng-click="showNext($index)" data-ng-show="$last"
-							data-ng-class="{hidden: ($index < currentJobIndex)}">Add</button></td>
-					<td><button class="btn-primary btn-xs delete" data-ng-click="hideThis($index)" data-ng-hide="$first"
-							data-ng-class="{hidden: ($index != currentJobIndex)}">Delete</button></td>
-
+					<td><input type="text" value="{{field.name}}" data-ng-model="field.name"
+						data-ng-readonly='!($index == editName)' data-ng-dblclick="editName = $index" /></td>
+					<td><select data-ng-model="field.condition">
+							<option data-ng-selected="{{field.condition}}" data-ng-repeat="c in model.conditions">{{c}}</option>
+					</select></td>
+					<!-- 					<td><input type="text" value="{{field.condition}}" data-ng-model="field.condition"
+						data-ng-readonly='!($index == editCondition)' data-ng-dblclick="editCondition = $index" /></td> -->
+					<td><input type="text" value="{{field.value}}" data-ng-model="field.value"
+						data-ng-readonly='!($index == editValue)' data-ng-dblclick="editValue = $index" /></td>
+					<td><button class="btn-primary btn-xs delete" data-ng-click="deleteField(model.data[0].criteria, $index)">Delete</button></td>
+					<td><button class="btn-primary btn-xs add" data-ng-click="addField(model.data[0].criteria, $index)"
+							data-ng-show="$last">Add</button></td>
+				</tr>
+				<tr>
+					<td>
+						<button class="btn-primary btn-xs add" data-ng-click="saveCriteria(model.data[0].criteria)">Save Data</button>
+					</td>
 				</tr>
 			</tbody>
 		</table>
