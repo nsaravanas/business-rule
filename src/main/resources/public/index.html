@@ -13,10 +13,13 @@
 <body data-ng-app="rule">
 
 	<div data-ng-app="rule" data-ng-controller="ruleController">
-		<table>
+
+		<table class="table">
 			<thead>
 				<tr>
-					<td align="center">Matching Criteria</td>
+					<td>Field</td>
+					<td>Condition</td>
+					<td>Value</td>
 				</tr>
 			</thead>
 			<tbody>
@@ -26,37 +29,19 @@
 					<td><select data-ng-model="field.condition">
 							<option data-ng-selected="{{field.condition}}" data-ng-repeat="c in model.conditions">{{c}}</option>
 					</select></td>
-					<!-- 					<td><input type="text" value="{{field.condition}}" data-ng-model="field.condition"
-						data-ng-readonly='!($index == editCondition)' data-ng-dblclick="editCondition = $index" /></td> -->
 					<td><input type="text" value="{{field.value}}" data-ng-model="field.value"
 						data-ng-readonly='!($index == editValue)' data-ng-dblclick="editValue = $index" /></td>
-					<td><button class="btn-primary btn-xs delete" data-ng-click="deleteField(model.data[0].criteria, $index)">Delete</button></td>
-					<td><button class="btn-primary btn-xs add" data-ng-click="addField(model.data[0].criteria, $index)"
-							data-ng-show="$last">Add</button></td>
-				</tr>
-				<tr>
-					<td>
-						<button class="btn-primary btn-xs add" data-ng-click="saveCriteria(model.data[0].criteria)">Save Data</button>
-					</td>
+					<td><div class="btn-group">
+							<button class="btn btn-danger" data-ng-click="deleteField(model.data[0].criteria, $index)"
+								data-ng-hide="model.data[0].criteria.fields.length == 1">Delete</button>
+							<button class="btn btn-primary" data-ng-click="addField(model.data[0].criteria, 0)" data-ng-show="$last">Add</button>
+							<button class="btn btn-success" data-ng-click="saveCriteria(model.data[0].criteria)" data-ng-show="$last">Save
+								Data</button>
+						</div></td>
 				</tr>
 			</tbody>
 		</table>
 
-		<script type="text/ng-template" id="display">
-        <td>{{field.name}}</td>
-        <td>{{field.value}}</td>
-        <td>
-            <button data-ng-click="editField(field)">Edit</button>
-        </td>
-    </script>
-		<script type="text/ng-template" id="edit">
-        <td><input type="text" data-ng-model="model.selected.name" /></td>
-        <td><input type="text" data-ng-model="model.selected.value" /></td>
-        <td>
-            <button data-ng-click="saveField($index)">Save</button>
-            <button data-ng-click="reset()">Cancel</button>
-        </td>
-    </script>
 	</div>
 
 </body>

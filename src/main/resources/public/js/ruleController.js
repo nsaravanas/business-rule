@@ -1,6 +1,4 @@
-app.controller('ruleController', [
-		'$scope',
-		'ruleService',
+app.controller('ruleController', [ '$scope', 'ruleService',
 		function($scope, ruleService) {
 
 			$scope.model = {
@@ -21,27 +19,6 @@ app.controller('ruleController', [
 				});
 			};
 
-			// gets the template to ng-include for a table row / item
-			$scope.getTemplate = function(field) {
-				console.log('Field Template ' + field.id);
-				if (field.id === $scope.model.selected.id)
-					return 'edit';
-				else
-					return 'display';
-			};
-
-			$scope.editField = function(field) {
-				$scope.model.selected = angular.copy(field);
-			};
-
-			$scope.saveField = function(idx) {
-				console.log("Saving field");
-				$scope.model.data[idx] = angular.copy($scope.model.selected);
-				console.log('persisted '
-						+ JSON.stringify($scope.model.selected));
-				$scope.reset();
-			};
-
 			$scope.reset = function() {
 				$scope.model.selected = {};
 			};
@@ -55,7 +32,7 @@ app.controller('ruleController', [
 				console.log(index);
 				criteria.fields.push({
 					'name' : '',
-					'condition' : '',
+					'condition' : 'EQUALS',
 					'value' : ''
 				});
 			};
@@ -66,7 +43,6 @@ app.controller('ruleController', [
 				$scope.model.data[0].criteria = criteria;
 			};
 
-			// init
 			loadConditions();
 			rules();
 
