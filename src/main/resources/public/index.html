@@ -24,11 +24,11 @@
 	<div class="container">
 
 		<div class="row">
-			<div class="col-sm-10"></div>
-			<div class="col-sm-1" align="right">
+			<div class="col-sm-8"></div>
+			<div class="col-sm-2" align="right">
 				<button type="button" class="btn btn-info btn-md">Role</button>
 			</div>
-			<div class="col-sm-1" align="left">
+			<div class="col-sm-2" align="left">
 				<select data-ng-model="model.user" data-ng-change="reload({{model.user}})" class="form-control">
 					<option data-ng-selected="{{model.user}}" data-ng-repeat="t in model.types">{{t}}</option>
 				</select>
@@ -41,17 +41,12 @@
 
 		<div class="row">
 			<div class="panel-group">
-
 				<div class="panel panel-primary" data-ng-repeat="data in model.data track by $index">
-
 					<div class="panel-heading">
 						<h4 class="panel-title">{{data.name}}</h4>
 					</div>
-
 					<div class="panel-body">
-						<h4 class="panel-title">
-							<p class="text-primary">Matching criteria</p>
-						</h4>
+						<h4 class="panel-header">Matching criteria</h4>
 						<table class="table table-condensed" data-ng-table="criteriaTable">
 							<tbody>
 								<tr data-ng-repeat="field in data.criteria.fields track by $index">
@@ -72,7 +67,6 @@
 										data-ng-show="model.user == 'DEV'" class="form-control" /></td>
 								</tr>
 								<tr>
-
 									<td>
 										<div class="btn-group">
 											<button class="btn btn-primary" data-ng-disabled="model.user == 'DEV'"
@@ -80,8 +74,6 @@
 											<button class="btn btn-success" data-ng-click="saveCriteria(data.criteria)">Save Criteria</button>
 										</div>
 									</td>
-									<td></td>
-									<td></td>
 								</tr>
 							</tbody>
 						</table>
@@ -90,6 +82,7 @@
 				</div>
 			</div>
 		</div>
+
 		<div class="row">
 			<div class="container-fluid">
 				<div class="row">
@@ -99,9 +92,11 @@
 				</div>
 			</div>
 		</div>
+
 		<div class="page-footer">
 			<h1>Drool Rule Maker</h1>
 		</div>
+
 	</div>
 </body>
 </html>
