@@ -14,35 +14,39 @@
 
 	<div data-ng-app="rule" data-ng-controller="ruleController">
 
-		<table class="table">
-			<thead>
-				<tr>
-					<td>Field</td>
-					<td>Condition</td>
-					<td>Value</td>
-				</tr>
-			</thead>
-			<tbody>
-				<tr data-ng-repeat="field in model.data[0].criteria.fields track by $index">
-					<td><input type="text" value="{{field.name}}" data-ng-model="field.name"
-						data-ng-readonly='!($index == editName)' data-ng-dblclick="editName = $index" /></td>
-					<td><select data-ng-model="field.condition">
-							<option data-ng-selected="{{field.condition}}" data-ng-repeat="c in model.conditions">{{c}}</option>
-					</select></td>
-					<td><input type="text" value="{{field.value}}" data-ng-model="field.value"
-						data-ng-readonly='!($index == editValue)' data-ng-dblclick="editValue = $index" /></td>
-					<td><div class="btn-group">
-							<button class="btn btn-danger" data-ng-click="deleteField(model.data[0].criteria, $index)"
-								data-ng-hide="model.data[0].criteria.fields.length == 1">Delete</button>
-							<button class="btn btn-primary" data-ng-click="addField(model.data[0].criteria, 0)" data-ng-show="$last">Add</button>
-							<button class="btn btn-success" data-ng-click="saveCriteria(model.data[0].criteria)" data-ng-show="$last">Save
-								Data</button>
-						</div></td>
-				</tr>
-			</tbody>
-		</table>
-
+		<div class="panel panel-primary" data-ng-repeat="data in model.data track by $index">
+			<div class="panel-heading">{{data.name}}</div>
+			<div class="panel-body">
+				<table class="table">
+					<tbody>
+						<tr data-ng-repeat="field in data.criteria.fields track by $index">
+							<td>
+								<input type="text" value="{{field.name}}" data-ng-model="field.name" data-ng-readonly='!($index == editName)' data-ng-dblclick="editName = $index" />
+							</td>
+							<td>
+								<select data-ng-model="field.condition">
+									<option data-ng-selected="{{field.condition}}" data-ng-repeat="c in model.conditions">{{c}}</option>
+								</select>
+							</td>
+							<td>
+								<input type="text" value="{{field.value}}" data-ng-model="field.value" data-ng-readonly='!($index == editValue)' data-ng-dblclick="editValue = $index" />
+							</td>
+							<td>
+								<button class="btn btn-danger" data-ng-click="deleteField(data.criteria, $index)" data-ng-hide="data.criteria.fields.length == 1">Delete</button>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<button class="btn btn-primary" data-ng-click="addField(data.criteria, 0)">Add</button>
+							</td>
+							<td>
+								<button class="btn btn-success" data-ng-click="saveCriteria(data.criteria)">Save Data</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
 	</div>
-
 </body>
 </html>
