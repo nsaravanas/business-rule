@@ -16,6 +16,12 @@ app.controller('ruleController', [ '$scope', '$window', 'ruleService',
 				});
 			};
 
+			var rule = function(name) {
+				ruleService.getRule(name).then(function(response) {
+					$scope.model.data = response.data;
+				});
+			};
+
 			var loadConditions = function() {
 				ruleService.getConditions().then(function(response) {
 					$scope.model.conditions = response.data;
@@ -69,6 +75,13 @@ app.controller('ruleController', [ '$scope', '$window', 'ruleService',
 			$scope.reload = function(type) {
 				console.log(type + '--->' + $scope.model.user);
 			};
+
+			$scope.updateRule = function() {
+				console.log('update rule method');
+				if ($scope.model.selected != null) {
+					rule($scope.model.selected);
+				}
+			}
 
 			var showToast = function() {
 				console.log('Toast!');

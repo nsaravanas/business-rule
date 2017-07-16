@@ -2,6 +2,7 @@ package org.saravana.boot.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 import org.saravana.boot.model.Condition;
@@ -12,15 +13,21 @@ import org.saravana.boot.model.Rule;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class RuleController {
 
 	@RequestMapping(value = "/rule", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Rule getRule() {
+	public Rule getRule(@RequestParam String name) {
+		System.out.println("getRule called");
+
+		Random r = new Random();
 
 		Rule rule = createRule();
+		rule.setId(r.nextInt(100));
+		rule.setName(rule.getName() + r.nextInt(200));
 
 		List<Field> fields = new ArrayList<>();
 		for (int i = 0; i < 5; i++) {
@@ -70,9 +77,10 @@ public class RuleController {
 
 	@RequestMapping(value = "/rules", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<Rule> getRules() {
+		System.out.println("getRules called");
 		List<Rule> rules = new ArrayList<>();
 		for (int i = 0; i < 5; i++) {
-			Rule rule = getRule();
+			Rule rule = getRule("");
 			rule.setId(i);
 			rule.setName(rule.getName() + i);
 			rule.getControlData().setId(i);
@@ -90,6 +98,7 @@ public class RuleController {
 
 	@RequestMapping(value = "/rulesname", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<String> getRulesName() {
+		System.out.println("getRulesName called");
 		return getRules().stream().map(Rule::getName).collect(Collectors.toList());
 	}
 

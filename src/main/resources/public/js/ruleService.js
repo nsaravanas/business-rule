@@ -1,10 +1,13 @@
 app.service('ruleService', function($http) {
 	delete $http.defaults.headers.common['X-Requested-With'];
 
-	this.getRule = function() {
+	this.getRule = function(name) {
 		return $http({
 			method : 'GET',
-			url : '/rule'
+			url : '/rule',
+			params : {
+				'name' : name
+			}
 		});
 	};
 

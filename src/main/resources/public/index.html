@@ -41,7 +41,7 @@
 		<div class="row">
 			<form class="form-inline">
 				<div class="form-group">
-					<select data-ng-model="field.condition" class="form-control">
+					<select data-ng-model="model.selected" class="form-control" data-ng-change="updateRule()">
 						<option value="" disabled selected>Please select...</option>
 						<option data-ng-repeat="n in model.rulesname">{{n}}</option>
 					</select>
