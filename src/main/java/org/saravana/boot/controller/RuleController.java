@@ -36,11 +36,11 @@ public class RuleController {
 		rule.setCriteria(criteria);
 
 		Data journalData = new Data();
-		journalData.setData(fields);
+		journalData.setFields(fields);
 		rule.setJournalData(journalData);
 
 		Data controlData = new Data();
-		controlData.setData(fields);
+		controlData.setFields(fields);
 		rule.setControlData(controlData);
 
 		return rule;

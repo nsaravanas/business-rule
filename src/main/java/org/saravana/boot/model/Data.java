@@ -1,18 +1,19 @@
 package org.saravana.boot.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Data {
 
 	private Integer id;
-	private List<Field> data;
+	private List<Field> fields = new ArrayList<>();
 
-	public List<Field> getData() {
-		return data;
+	public List<Field> getFields() {
+		return fields;
 	}
 
-	public void setData(List<Field> data) {
-		this.data = data;
+	public void setFields(List<Field> fields) {
+		this.fields = fields;
 	}
 
 	public Integer getId() {

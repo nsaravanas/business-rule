@@ -6,7 +6,7 @@ app.controller('ruleController', [ '$scope', '$window', 'ruleService',
 				selected : {},
 				conditions : [],
 				user : '',
-				types : [ 'DEV', 'BA' ]
+				types : [ 'Developer', 'Business Analyst' ]
 			};
 
 			var rules = function() {

@@ -27,27 +27,27 @@
 	<div class="container">
 
 		<div class="row">
-			<div class="col-sm-8"></div>
+			<div class="col-sm-8" align="center">Drool Rule Maker</div>
 			<div class="col-sm-2" align="right">
 				<button type="button" class="btn btn-info btn-md">Role</button>
 			</div>
 			<div class="col-sm-2" align="left">
-				<select data-ng-model="model.user" data-ng-change="reload({{model.user}})" class="form-control">
+				<select data-ng-model="model.user" class="form-control">
 					<option data-ng-selected="{{model.user}}" data-ng-repeat="t in model.types">{{t}}</option>
 				</select>
 			</div>
 		</div>
 
 		<div class="page-header">
-			<h1>Drool Rule Maker</h1>
+			<h1>{{model.data[0].name}}</h1>
 		</div>
 
 		<div class="row">
-			<div class="panel-group">
+			<div class="panel-group" id="accordion">
 				<div class="panel panel-primary" data-ng-repeat="data in model.data track by $index">
 					<div class="panel-heading">
 						<h4 class="panel-title">
-							<a data-toggle="collapse" href="#collapse1">{{data.name}}</a>
+							<a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Matching criteria</a>
 						</h4>
 					</div>
 					<div id="collapse1" class="panel-collapse collapse in">
@@ -56,27 +56,72 @@
 								<tbody>
 									<tr data-ng-repeat="field in data.criteria.fields track by $index">
 										<td><input type="text" value="{{field.name}}" data-ng-model="field.name"
-											data-ng-readonly="model.user == 'DEV'" class="form-control" /></td>
-										<td><select data-ng-model="field.condition" data-ng-disabled="model.user == 'DEV'" class="form-control">
+											data-ng-readonly="model.user == 'Developer'" class="form-control" /></td>
+										<td><select data-ng-model="field.condition" data-ng-disabled="model.user == 'Developer'"
+											class="form-control">
 												<option data-ng-selected="{{field.condition}}" data-ng-repeat="c in model.conditions">{{c}}</option>
 										</select></td>
 										<td><input type="text" value="{{field.value}}" data-ng-model="field.value"
-											data-ng-readonly="model.user == 'DEV'" class="form-control" /></td>
+											data-ng-readonly="model.user == 'Developer'" class="form-control" /></td>
 										<td>
 											<button class="btn btn-danger" data-ng-click="deleteField(data.criteria, $index)"
-												data-ng-hide="data.criteria.fields.length == 1" data-ng-disabled="model.user == 'DEV'" class="form-control">Delete</button>
+												data-ng-hide="data.criteria.fields.length == 1" data-ng-disabled="model.user == 'Developer'"
+												class="form-control">Delete</button>
 										</td>
 										<td><input type="text" value="{{field.field}}" data-ng-model="field.field"
-											data-ng-show="model.user == 'DEV'" class="form-control" /></td>
+											data-ng-show="model.user == 'Developer'" class="form-control" /></td>
 										<td><input type="text" value="{{field.override}}" data-ng-model="field.override"
-											data-ng-show="model.user == 'DEV'" class="form-control" /></td>
+											data-ng-show="model.user == 'Developer'" class="form-control" /></td>
 									</tr>
 									<tr>
 										<td>
 											<div class="btn-group">
-												<button class="btn btn-primary" data-ng-disabled="model.user == 'DEV'"
-													data-ng-click="addField(data.criteria, 0)">Add Row</button>
+												<button class="btn btn-primary" data-ng-disabled="model.user == 'Developer'"
+													data-ng-click="addField(data.criteria)">Add Row</button>
 												<button class="btn btn-success" data-ng-click="saveCriteria(data.criteria)">Save Criteria</button>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-primary" data-ng-repeat="data in model.data track by $index">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Journal Data</a>
+						</h4>
+					</div>
+					<div id="collapse2" class="panel-collapse collapse">
+						<div class="panel-body">
+							<table class="table table-condensed" data-ng-table="journalDataTable">
+								<tbody>
+									<tr data-ng-repeat="field in data.journalData.fields track by $index">
+										<td><input type="text" value="{{field.name}}" data-ng-model="field.name"
+											data-ng-readonly="model.user == 'Developer'" class="form-control" /></td>
+										<td><select data-ng-model="field.condition" data-ng-disabled="model.user == 'Developer'"
+											class="form-control">
+												<option data-ng-selected="{{field.condition}}" data-ng-repeat="c in model.conditions">{{c}}</option>
+										</select></td>
+										<td><input type="text" value="{{field.value}}" data-ng-model="field.value"
+											data-ng-readonly="model.user == 'Developer'" class="form-control" /></td>
+										<td>
+											<button class="btn btn-danger" data-ng-click="deleteField(data.journalData, $index)"
+												data-ng-hide="data.journalData.fields.length == 1" data-ng-disabled="model.user == 'Developer'"
+												class="form-control">Delete</button>
+										</td>
+										<td><input type="text" value="{{field.field}}" data-ng-model="field.field"
+											data-ng-show="model.user == 'Developer'" class="form-control" /></td>
+										<td><input type="text" value="{{field.override}}" data-ng-model="field.override"
+											data-ng-show="model.user == 'Developer'" class="form-control" /></td>
+									</tr>
+									<tr>
+										<td>
+											<div class="btn-group">
+												<button class="btn btn-primary" data-ng-disabled="model.user == 'Developer'"
+													data-ng-click="addField(data.journalData)">Add Row</button>
+												<button class="btn btn-success" data-ng-click="saveCriteria(data.journalData)">Save Journal</button>
 											</div>
 										</td>
 									</tr>
@@ -101,6 +146,7 @@
 		<div class="page-footer">
 			<h1>Drool Rule Maker</h1>
 		</div>
+
 
 	</div>
 </body>
