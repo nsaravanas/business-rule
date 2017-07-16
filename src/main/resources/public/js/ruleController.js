@@ -41,6 +41,17 @@ app.controller('ruleController', [ '$scope', 'ruleService',
 				console.log('Criteria');
 				console.log(JSON.stringify(criteria));
 				$scope.model.data[0].criteria = criteria;
+				showToast();
+			};
+
+			var showToast = function() {
+				console.log('Toast!');
+				var x = document.getElementById("snackbar");
+				x.className = "show";
+				setTimeout(function() {
+					x.className = x.className.replace("show", "");
+				}, 3000);
+				console.log('Done!');
 			};
 
 			loadConditions();

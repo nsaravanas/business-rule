@@ -1,50 +1,73 @@
 <!DOCTYPE html>
 <html>
+
 <head>
+
 <meta charset="ISO-8859-1">
 <title>Drool Rule Maker</title>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="./css/rule.css">
+
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.5/angular-messages.min.js"></script>
 <script src="./js/rule.js"></script>
 <script src="./js/ruleService.js"></script>
 <script src="./js/ruleController.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-</head>
-<body data-ng-app="rule">
 
+</head>
+
+<body data-ng-app="rule">
 	<div data-ng-app="rule" data-ng-controller="ruleController">
 
-		<div class="panel panel-primary" data-ng-repeat="data in model.data track by $index">
-			<div class="panel-heading">{{data.name}}</div>
-			<div class="panel-body">
-				<table class="table">
-					<tbody>
-						<tr data-ng-repeat="field in data.criteria.fields track by $index">
-							<td>
-								<input type="text" value="{{field.name}}" data-ng-model="field.name" data-ng-readonly='!($index == editName)' data-ng-dblclick="editName = $index" />
-							</td>
-							<td>
-								<select data-ng-model="field.condition">
-									<option data-ng-selected="{{field.condition}}" data-ng-repeat="c in model.conditions">{{c}}</option>
-								</select>
-							</td>
-							<td>
-								<input type="text" value="{{field.value}}" data-ng-model="field.value" data-ng-readonly='!($index == editValue)' data-ng-dblclick="editValue = $index" />
-							</td>
-							<td>
-								<button class="btn btn-danger" data-ng-click="deleteField(data.criteria, $index)" data-ng-hide="data.criteria.fields.length == 1">Delete</button>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<button class="btn btn-primary" data-ng-click="addField(data.criteria, 0)">Add</button>
-							</td>
-							<td>
-								<button class="btn btn-success" data-ng-click="saveCriteria(data.criteria)">Save Data</button>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+
+
+		<div class="panel-group">
+
+			<div class="panel panel-primary" data-ng-repeat="data in model.data track by $index">
+
+				<div class="panel-heading">
+					<h4 class="panel-title">{{data.name}}</h4>
+				</div>
+
+				<div class="panel-body">
+					<h4 class="panel-title">Matching criteria</h4>
+					<table class="table table-striped">
+						<tbody>
+							<tr data-ng-repeat="field in data.criteria.fields track by $index">
+								<td><input type="text" value="{{field.name}}" data-ng-model="field.name" /></td>
+								<td><select data-ng-model="field.condition">
+										<option data-ng-selected="{{field.condition}}" data-ng-repeat="c in model.conditions">{{c}}</option>
+								</select></td>
+								<td><input type="text" value="{{field.value}}" data-ng-model="field.value" /></td>
+								<td>
+									<button class="btn btn-danger" data-ng-click="deleteField(data.criteria, $index)"
+										data-ng-hide="data.criteria.fields.length == 1">Delete</button>
+								</td>
+								<td><input type="text" value="{{field.field}}" data-ng-model="field.field" data-ng-show="model.user == 1" /></td>
+								<td><input type="text" value="{{field.override}}" data-ng-model="field.override"
+									data-ng-show="model.user == 1" /></td>
+							</tr>
+							<tr>
+								<td>
+									<button class="btn btn-primary" data-ng-click="addField(data.criteria, 0)">Add Row</button>
+								</td>
+								<td>
+									<button class="btn btn-success" data-ng-click="saveCriteria(data.criteria)">Save Criteria</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-4" style="background-color: yellow;"></div>
+						<div class="col-md-4" style="background-color: green;"></div>
+						<div class="col-md-4" style="background-color: red;"></div>
+					</div>
+				</div>
+				<div class="panel-footer">Panel Footer</div>
+				<div class="snackbar-container" data-snackbar="true" data-snackbar-duration="1000" data-snackbar-remove-delay="200"></div>
 			</div>
 		</div>
 	</div>

@@ -78,7 +78,7 @@ public class RuleController {
 			rule.getJournalData().setId(i);
 			rules.add(rule);
 		}
-		return rules;
+		return rules.subList(rules.size() - 1, rules.size());
 	}
 
 	@RequestMapping(value = "/conditions", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
