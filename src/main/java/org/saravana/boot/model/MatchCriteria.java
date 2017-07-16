@@ -4,8 +4,8 @@ import java.util.List;
 
 public class MatchCriteria {
 
+	private Integer id;
 	private List<Field> fields;
-
 	private String override;
 
 	public List<Field> getFields() {
@@ -24,4 +24,11 @@ public class MatchCriteria {
 		this.override = override;
 	}
 
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 }

@@ -1,9 +1,7 @@
 package org.saravana.boot.controller;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import org.saravana.boot.model.Condition;
 import org.saravana.boot.model.Data;
@@ -21,28 +19,14 @@ public class RuleController {
 	@RequestMapping(value = "/rule", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Rule getRule() {
 
-		Rule rule = new Rule();
-		rule.setAuthor("nagasara");
-		rule.setControlHelper("JournalHelper.createJournal");
-		rule.setJournalHelper("JournalHelper.createJournal");
-		rule.setName("Settlement");
-		rule.setPackageName("org.saravana");
+		Rule rule = createRule();
 
-		Field field1 = new Field();
-		field1.setCondition(Condition.EQUALS);
-		field1.setField("eventType");
-		field1.setName("event type");
-		field1.setValue("535/545");
-		field1.setOverride("535 or 545");
-
-		Field field2 = new Field();
-		field2.setCondition(Condition.EQUALS);
-		field2.setField("eventSubType");
-		field2.setName("event sub type");
-		field2.setValue("123/345");
-		field2.setOverride("123 or 345");
-
-		List<Field> fields = Arrays.asList(field1, field2);
+		List<Field> fields = new ArrayList<>();
+		for (int i = 0; i < 5; i++) {
+			Field f = createField();
+			f.setId(i);
+			fields.add(f);
+		}
 
 		MatchCriteria criteria = new MatchCriteria();
 		criteria.setFields(fields);
@@ -60,9 +44,38 @@ public class RuleController {
 
 	}
 
+	private Rule createRule() {
+		Rule rule = new Rule();
+		rule.setAuthor("nagasara");
+		rule.setControlHelper("JournalHelper.createJournal");
+		rule.setJournalHelper("JournalHelper.createJournal");
+		rule.setName("Settlement");
+		rule.setPackageName("org.saravana");
+		return rule;
+	}
+
+	private Field createField() {
+		Field field = new Field();
+		field.setCondition(Condition.EQUALS);
+		field.setField("eventSubType");
+		field.setName("event sub type");
+		field.setValue("123/345");
+		field.setOverride("123 or 345");
+		return field;
+	}
+
 	@RequestMapping(value = "/rules", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<Rule> getRules() {
-		return IntStream.range(0, 5).mapToObj(i -> getRule()).collect(Collectors.toList());
+		List<Rule> rules = new ArrayList<>();
+		for (int i = 0; i < 5; i++) {
+			Rule rule = getRule();
+			rule.setId(i);
+			rule.getControlData().setId(i);
+			rule.getCriteria().setId(i);
+			rule.getJournalData().setId(i);
+			rules.add(rule);
+		}
+		return rules;
 	}
 
 }

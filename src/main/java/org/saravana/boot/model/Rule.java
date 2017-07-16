@@ -2,6 +2,7 @@ package org.saravana.boot.model;
 
 public class Rule {
 
+	private Integer id;
 	private String name;
 	private String packageName;
 	private String author;
@@ -10,6 +11,14 @@ public class Rule {
 	private MatchCriteria criteria;
 	private Data journalData;
 	private Data controlData;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public String getName() {
 		return name;

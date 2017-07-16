@@ -2,13 +2,20 @@ package org.saravana.boot.model;
 
 public class Field {
 
-
-
+	private Integer id;
 	private String name;
 	private Condition condition;
 	private String field;
 	private String value;
 	private String override;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public String getName() {
 		return name;
