@@ -1,10 +1,12 @@
-app.controller('ruleController', [ '$scope', 'ruleService',
-		function($scope, ruleService) {
+app.controller('ruleController', [ '$scope', '$window', 'ruleService',
+		function($scope, $window, ruleService) {
 
 			$scope.model = {
 				data : [],
 				selected : {},
-				conditions : []
+				conditions : [],
+				user : '',
+				types : [ 'DEV', 'BA' ]
 			};
 
 			var rules = function() {
@@ -44,6 +46,10 @@ app.controller('ruleController', [ '$scope', 'ruleService',
 				showToast();
 			};
 
+			$scope.reload = function(type) {
+				console.log(type + '--->' + $scope.model.user);
+			};
+
 			var showToast = function() {
 				console.log('Toast!');
 				var x = document.getElementById("snackbar");
@@ -52,6 +58,7 @@ app.controller('ruleController', [ '$scope', 'ruleService',
 					x.className = x.className.replace("show", "");
 				}, 3000);
 				console.log('Done!');
+				alert('Saved');
 			};
 
 			loadConditions();

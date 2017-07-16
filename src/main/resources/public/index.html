@@ -21,6 +21,9 @@
 	<div data-ng-app="rule" data-ng-controller="ruleController">
 
 
+		Select User Type: <select data-ng-model="model.user" data-ng-change="reload({{model.user}})">
+			<option data-ng-selected="{{model.user}}" data-ng-repeat="t in model.types">{{t}}</option>
+		</select>
 
 		<div class="panel-group">
 
@@ -44,9 +47,10 @@
 									<button class="btn btn-danger" data-ng-click="deleteField(data.criteria, $index)"
 										data-ng-hide="data.criteria.fields.length == 1">Delete</button>
 								</td>
-								<td><input type="text" value="{{field.field}}" data-ng-model="field.field" data-ng-show="model.user == 1" /></td>
+								<td><input type="text" value="{{field.field}}" data-ng-model="field.field"
+									data-ng-show="model.user == 'DEV'" /></td>
 								<td><input type="text" value="{{field.override}}" data-ng-model="field.override"
-									data-ng-show="model.user == 1" /></td>
+									data-ng-show="model.user == 'DEV'" /></td>
 							</tr>
 							<tr>
 								<td>
