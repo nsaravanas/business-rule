@@ -2,6 +2,7 @@ package org.saravana.boot.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.saravana.boot.model.Condition;
 import org.saravana.boot.model.Data;
@@ -73,17 +74,23 @@ public class RuleController {
 		for (int i = 0; i < 5; i++) {
 			Rule rule = getRule();
 			rule.setId(i);
+			rule.setName(rule.getName() + i);
 			rule.getControlData().setId(i);
 			rule.getCriteria().setId(i);
 			rule.getJournalData().setId(i);
 			rules.add(rule);
 		}
-		return rules.subList(rules.size() - 1, rules.size());
+		return rules;
 	}
 
 	@RequestMapping(value = "/conditions", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Condition[] getConditions() {
 		return Condition.values();
+	}
+
+	@RequestMapping(value = "/rulesname", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<String> getRulesName() {
+		return getRules().stream().map(Rule::getName).collect(Collectors.toList());
 	}
 
 }

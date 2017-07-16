@@ -2,22 +2,29 @@ app.controller('ruleController', [ '$scope', '$window', 'ruleService',
 		function($scope, $window, ruleService) {
 
 			$scope.model = {
-				data : [],
-				selected : {},
+				data : {},
+				selected : null,
 				conditions : [],
 				user : '',
-				types : [ 'Developer', 'Business Analyst' ]
+				types : [ 'Developer', 'Business Analyst' ],
+				rulesname : []
 			};
 
 			var rules = function() {
 				ruleService.getRules().then(function(response) {
-					$scope.model.data = response.data;
+					$scope.model.data = response.data[0];
 				});
 			};
 
 			var loadConditions = function() {
 				ruleService.getConditions().then(function(response) {
 					$scope.model.conditions = response.data;
+				});
+			};
+
+			var rulesname = function() {
+				ruleService.getRulesName().then(function(response) {
+					$scope.model.rulesname = response.data;
 				});
 			};
 
@@ -31,6 +38,12 @@ app.controller('ruleController', [ '$scope', '$window', 'ruleService',
 			};
 
 			$scope.addField = function(criteria) {
+
+				if (criteria == null) {
+					criteria = {};
+					criteria.fields = [];
+				}
+
 				criteria.fields.push({
 					'name' : '',
 					'condition' : 'EQUALS',
@@ -70,5 +83,6 @@ app.controller('ruleController', [ '$scope', '$window', 'ruleService',
 
 			loadConditions();
 			rules();
+			rulesname();
 
 		} ]);

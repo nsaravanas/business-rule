@@ -38,13 +38,34 @@
 			</div>
 		</div>
 
+		<div class="row">
+			<form class="form-inline">
+				<div class="form-group">
+					<select data-ng-model="field.condition" class="form-control">
+						<option value="" disabled selected>Please select...</option>
+						<option data-ng-repeat="n in model.rulesname">{{n}}</option>
+					</select>
+				</div>
+				<div class="btn-group">
+					<button class="btn btn-success">Create</button>
+					<button class="btn btn-info">Edit</button>
+					<button class="btn btn-warning">Clone</button>
+					<button class="btn btn-danger">Delete</button>
+				</div>
+			</form>
+		</div>
+
 		<div class="page-header">
-			<h1>{{model.data[0].name}}</h1>
+			<h1>{{model.data.name}}</h1>
+		</div>
+
+		<div class="row">
+			<br></br>
 		</div>
 
 		<div class="row">
 			<div class="panel-group" id="accordion">
-				<div class="panel panel-primary" data-ng-repeat="data in model.data track by $index">
+				<div class="panel panel-primary">
 					<div class="panel-heading">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Matching Criteria</a>
@@ -54,7 +75,7 @@
 						<div class="panel-body">
 							<table class="table table-condensed" data-ng-table="criteriaTable">
 								<tbody>
-									<tr data-ng-repeat="field in data.criteria.fields track by $index">
+									<tr data-ng-repeat="field in model.data.criteria.fields track by $index">
 										<td><input type="text" value="{{field.name}}" data-ng-model="field.name"
 											data-ng-readonly="model.user == 'Developer'" class="form-control" /></td>
 										<td><select data-ng-model="field.condition" data-ng-disabled="model.user == 'Developer'"
@@ -64,8 +85,8 @@
 										<td><input type="text" value="{{field.value}}" data-ng-model="field.value"
 											data-ng-readonly="model.user == 'Developer'" class="form-control" /></td>
 										<td>
-											<button class="btn btn-danger" data-ng-click="deleteField(data.criteria, $index)"
-												data-ng-hide="data.criteria.fields.length == 1" data-ng-disabled="model.user == 'Developer'"
+											<button class="btn btn-danger" data-ng-click="deleteField(model.data.criteria, $index)"
+												data-ng-hide="model.data.criteria.fields.length == 1" data-ng-disabled="model.user == 'Developer'"
 												class="form-control">Delete</button>
 										</td>
 										<td><input type="text" value="{{field.field}}" data-ng-model="field.field"
@@ -77,8 +98,8 @@
 										<td>
 											<div class="btn-group">
 												<button class="btn btn-primary" data-ng-disabled="model.user == 'Developer'"
-													data-ng-click="addField(data.criteria)">Add Row</button>
-												<button class="btn btn-success" data-ng-click="saveFields(data, data.criteria, 'criteria')">Save
+													data-ng-click="addField(model.data.criteria)">Add Row</button>
+												<button class="btn btn-success" data-ng-click="saveFields(model.data, model.data.criteria, 'criteria')">Save
 													Criteria</button>
 											</div>
 										</td>
@@ -88,7 +109,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="panel panel-primary" data-ng-repeat="data in model.data track by $index">
+				<div class="panel panel-primary">
 					<div class="panel-heading">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Journal Data</a>
@@ -98,7 +119,7 @@
 						<div class="panel-body">
 							<table class="table table-condensed" data-ng-table="journalDataTable">
 								<tbody>
-									<tr data-ng-repeat="field in data.journalData.fields track by $index">
+									<tr data-ng-repeat="field in model.data.journalData.fields track by $index">
 										<td><input type="text" value="{{field.name}}" data-ng-model="field.name"
 											data-ng-readonly="model.user == 'Developer'" class="form-control" /></td>
 										<td><select data-ng-model="field.condition" data-ng-disabled="model.user == 'Developer'"
@@ -108,8 +129,8 @@
 										<td><input type="text" value="{{field.value}}" data-ng-model="field.value"
 											data-ng-readonly="model.user == 'Developer'" class="form-control" /></td>
 										<td>
-											<button class="btn btn-danger" data-ng-click="deleteField(data.journalData, $index)"
-												data-ng-hide="data.journalData.fields.length == 1" data-ng-disabled="model.user == 'Developer'"
+											<button class="btn btn-danger" data-ng-click="deleteField(model.data.journalData, $index)"
+												data-ng-hide="model.data.journalData.fields.length == 1" data-ng-disabled="model.user == 'Developer'"
 												class="form-control">Delete</button>
 										</td>
 										<td><input type="text" value="{{field.field}}" data-ng-model="field.field"
@@ -121,8 +142,8 @@
 										<td>
 											<div class="btn-group">
 												<button class="btn btn-primary" data-ng-disabled="model.user == 'Developer'"
-													data-ng-click="addField(data.journalData)">Add Row</button>
-												<button class="btn btn-success" data-ng-click="saveFields(data, data.journalData, 'journal')">Save
+													data-ng-click="addField(model.data.journalData)">Add Row</button>
+												<button class="btn btn-success" data-ng-click="saveFields(model.data, model.data.journalData, 'journal')">Save
 													Journal</button>
 											</div>
 										</td>
@@ -132,7 +153,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="panel panel-primary" data-ng-repeat="data in model.data track by $index">
+				<div class="panel panel-primary">
 					<div class="panel-heading">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Control Data</a>
@@ -142,7 +163,7 @@
 						<div class="panel-body">
 							<table class="table table-condensed" data-ng-table="controlDataTable">
 								<tbody>
-									<tr data-ng-repeat="field in data.controlData.fields track by $index">
+									<tr data-ng-repeat="field in model.data.controlData.fields track by $index">
 										<td><input type="text" value="{{field.name}}" data-ng-model="field.name"
 											data-ng-readonly="model.user == 'Developer'" class="form-control" /></td>
 										<td><select data-ng-model="field.condition" data-ng-disabled="model.user == 'Developer'"
@@ -152,8 +173,8 @@
 										<td><input type="text" value="{{field.value}}" data-ng-model="field.value"
 											data-ng-readonly="model.user == 'Developer'" class="form-control" /></td>
 										<td>
-											<button class="btn btn-danger" data-ng-click="deleteField(data.controlData, $index)"
-												data-ng-hide="data.controlData.fields.length == 1" data-ng-disabled="model.user == 'Developer'"
+											<button class="btn btn-danger" data-ng-click="deleteField(model.data.controlData, $index)"
+												data-ng-hide="model.data.controlData.fields.length == 1" data-ng-disabled="model.user == 'Developer'"
 												class="form-control">Delete</button>
 										</td>
 										<td><input type="text" value="{{field.field}}" data-ng-model="field.field"
@@ -165,8 +186,8 @@
 										<td>
 											<div class="btn-group">
 												<button class="btn btn-primary" data-ng-disabled="model.user == 'Developer'"
-													data-ng-click="addField(data.controlData)">Add Row</button>
-												<button class="btn btn-success" data-ng-click="saveFields(data, data.controlData, 'control')">Save
+													data-ng-click="addField(model.data.controlData)">Add Row</button>
+												<button class="btn btn-success" data-ng-click="saveFields(model.data, model.data.controlData, 'control')">Save
 													Control</button>
 											</div>
 										</td>

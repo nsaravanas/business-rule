@@ -20,5 +20,13 @@ app.service('ruleService', function($http) {
 			method : 'GET',
 			url : '/conditions'
 		});
-	}
+	};
+
+	this.getRulesName = function() {
+		return $http({
+			method : 'GET',
+			url : '/rulesname'
+		});
+	};
+
 });
