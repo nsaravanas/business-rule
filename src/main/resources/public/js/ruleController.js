@@ -27,11 +27,10 @@ app.controller('ruleController', [ '$scope', '$window', 'ruleService',
 
 			$scope.deleteField = function(criteria, index) {
 				console.log(index);
-				$scope.model.data[0].criteria.fields.splice(index, 1);
+				criteria.fields.splice(index, 1);
 			};
 
-			$scope.addField = function(criteria, index) {
-				console.log(index);
+			$scope.addField = function(criteria) {
 				criteria.fields.push({
 					'name' : '',
 					'condition' : 'EQUALS',
@@ -39,10 +38,18 @@ app.controller('ruleController', [ '$scope', '$window', 'ruleService',
 				});
 			};
 
-			$scope.saveCriteria = function(criteria) {
-				console.log('Criteria');
-				console.log(JSON.stringify(criteria));
-				$scope.model.data[0].criteria = criteria;
+			$scope.saveFields = function(rule, fields, type) {
+				switch (type) {
+				case "criteria":
+					rule.criteria.fields = fields;
+					break;
+				case "journal":
+					rule.journalData.fields = fields;
+					break;
+				case "control":
+					rule.controlData.fields = fields;
+					break;
+				}
 				showToast();
 			};
 

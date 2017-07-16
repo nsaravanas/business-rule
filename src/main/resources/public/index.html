@@ -47,7 +47,7 @@
 				<div class="panel panel-primary" data-ng-repeat="data in model.data track by $index">
 					<div class="panel-heading">
 						<h4 class="panel-title">
-							<a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Matching criteria</a>
+							<a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Matching Criteria</a>
 						</h4>
 					</div>
 					<div id="collapse1" class="panel-collapse collapse in">
@@ -78,7 +78,8 @@
 											<div class="btn-group">
 												<button class="btn btn-primary" data-ng-disabled="model.user == 'Developer'"
 													data-ng-click="addField(data.criteria)">Add Row</button>
-												<button class="btn btn-success" data-ng-click="saveCriteria(data.criteria)">Save Criteria</button>
+												<button class="btn btn-success" data-ng-click="saveFields(data, data.criteria, 'criteria')">Save
+													Criteria</button>
 											</div>
 										</td>
 									</tr>
@@ -121,7 +122,52 @@
 											<div class="btn-group">
 												<button class="btn btn-primary" data-ng-disabled="model.user == 'Developer'"
 													data-ng-click="addField(data.journalData)">Add Row</button>
-												<button class="btn btn-success" data-ng-click="saveCriteria(data.journalData)">Save Journal</button>
+												<button class="btn btn-success" data-ng-click="saveFields(data, data.journalData, 'journal')">Save
+													Journal</button>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-primary" data-ng-repeat="data in model.data track by $index">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Control Data</a>
+						</h4>
+					</div>
+					<div id="collapse3" class="panel-collapse collapse">
+						<div class="panel-body">
+							<table class="table table-condensed" data-ng-table="controlDataTable">
+								<tbody>
+									<tr data-ng-repeat="field in data.controlData.fields track by $index">
+										<td><input type="text" value="{{field.name}}" data-ng-model="field.name"
+											data-ng-readonly="model.user == 'Developer'" class="form-control" /></td>
+										<td><select data-ng-model="field.condition" data-ng-disabled="model.user == 'Developer'"
+											class="form-control">
+												<option data-ng-selected="{{field.condition}}" data-ng-repeat="c in model.conditions">{{c}}</option>
+										</select></td>
+										<td><input type="text" value="{{field.value}}" data-ng-model="field.value"
+											data-ng-readonly="model.user == 'Developer'" class="form-control" /></td>
+										<td>
+											<button class="btn btn-danger" data-ng-click="deleteField(data.controlData, $index)"
+												data-ng-hide="data.controlData.fields.length == 1" data-ng-disabled="model.user == 'Developer'"
+												class="form-control">Delete</button>
+										</td>
+										<td><input type="text" value="{{field.field}}" data-ng-model="field.field"
+											data-ng-show="model.user == 'Developer'" class="form-control" /></td>
+										<td><input type="text" value="{{field.override}}" data-ng-model="field.override"
+											data-ng-show="model.user == 'Developer'" class="form-control" /></td>
+									</tr>
+									<tr>
+										<td>
+											<div class="btn-group">
+												<button class="btn btn-primary" data-ng-disabled="model.user == 'Developer'"
+													data-ng-click="addField(data.controlData)">Add Row</button>
+												<button class="btn btn-success" data-ng-click="saveFields(data, data.controlData, 'control')">Save
+													Control</button>
 											</div>
 										</td>
 									</tr>
