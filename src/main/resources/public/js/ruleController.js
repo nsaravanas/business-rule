@@ -5,14 +5,14 @@ app.controller('ruleController', [ '$scope', '$window', 'ruleService',
 				data : {},
 				selected : null,
 				conditions : [],
-				user : '',
 				types : [ 'Developer', 'Business Analyst' ],
+				user : '',
 				rulesname : []
 			};
 
 			var rules = function() {
 				ruleService.getRules().then(function(response) {
-					$scope.model.data = response.data[0];
+					// $scope.model.data = response.data[0];
 				});
 			};
 
@@ -30,6 +30,7 @@ app.controller('ruleController', [ '$scope', '$window', 'ruleService',
 
 			var rulesname = function() {
 				ruleService.getRulesName().then(function(response) {
+					console.log('rules ' + response.data);
 					$scope.model.rulesname = response.data;
 				});
 			};
@@ -43,21 +44,41 @@ app.controller('ruleController', [ '$scope', '$window', 'ruleService',
 				criteria.fields.splice(index, 1);
 			};
 
-			$scope.addField = function(criteria) {
-
-				if (criteria == null) {
-					criteria = {};
-					criteria.fields = [];
-				}
-
-				criteria.fields.push({
+			$scope.addField = function(rule, fields, type) {
+				var field = {
 					'name' : '',
 					'condition' : 'EQUALS',
 					'value' : ''
-				});
+				};
+				console.log('add field begin');
+				switch (type) {
+				case "criteria":
+					if (rule.criteria == null) {
+						rule.criteria = {};
+						rule.criteria.fields = [];
+					}
+					rule.criteria.fields.push(field);
+					break;
+				case "journal":
+					if (rule.journalData == null) {
+						rule.journalData = {};
+						rule.journalData.fields = [];
+					}
+					rule.journalData.fields.push(field);
+					break;
+				case "control":
+					if (rule.controlData == null) {
+						rule.controlData = {};
+						rule.controlData.fields = [];
+					}
+					rule.controlData.fields.push(field);
+					break;
+				}
+				console.log('add field end');
 			};
 
 			$scope.saveFields = function(rule, fields, type) {
+				console.log('save field begin' + fields.length);
 				switch (type) {
 				case "criteria":
 					rule.criteria.fields = fields;
@@ -69,7 +90,7 @@ app.controller('ruleController', [ '$scope', '$window', 'ruleService',
 					rule.controlData.fields = fields;
 					break;
 				}
-				showToast();
+				console.log('save field end');
 			};
 
 			$scope.reload = function(type) {
@@ -83,16 +104,50 @@ app.controller('ruleController', [ '$scope', '$window', 'ruleService',
 				}
 			}
 
-			var showToast = function() {
-				console.log('Toast!');
-				var x = document.getElementById("snackbar");
-				x.className = "show";
-				setTimeout(function() {
-					x.className = x.className.replace("show", "");
-				}, 3000);
-				console.log('Done!');
-				alert('Saved');
-			};
+			// var stubRule = function() {
+			// return {
+			// "id" : -1,
+			// "name" : null,
+			// "packageName" : null,
+			// "author" : null,
+			// "journalHelper" : null,
+			// "controlHelper" : null,
+			// "criteria" : {
+			// "id" : -1,
+			// "fields" : [ {
+			// "id" : -1,
+			// "name" : null,
+			// "condition" : null,
+			// "field" : null,
+			// "value" : null,
+			// "override" : null
+			// } ],
+			// "override" : null
+			// },
+			// "journalData" : {
+			// "id" : -1,
+			// "fields" : [ {
+			// "id" : -1,
+			// "name" : null,
+			// "condition" : null,
+			// "field" : null,
+			// "value" : null,
+			// "override" : null
+			// } ]
+			// },
+			// "controlData" : {
+			// "id" : -1,
+			// "fields" : [ {
+			// "id" : -1,
+			// "name" : null,
+			// "condition" : null,
+			// "field" : null,
+			// "value" : null,
+			// "override" : null
+			// } ]
+			// }
+			// }
+			// };
 
 			loadConditions();
 			rules();

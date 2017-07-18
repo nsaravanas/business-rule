@@ -23,11 +23,7 @@ public class RuleController {
 	public Rule getRule(@RequestParam String name) {
 		System.out.println("getRule called");
 
-		Random r = new Random();
-
 		Rule rule = createRule();
-		rule.setId(r.nextInt(100));
-		rule.setName(rule.getName() + r.nextInt(200));
 
 		List<Field> fields = new ArrayList<>();
 		for (int i = 0; i < 5; i++) {
@@ -57,10 +53,12 @@ public class RuleController {
 
 	private Rule createRule() {
 		Rule rule = new Rule();
+		Random r = new Random();
+		rule.setId(r.nextInt(100));
+		rule.setName(rule.getName() + r.nextInt(200));
 		rule.setAuthor("nagasara");
 		rule.setControlHelper("JournalHelper.createJournal");
 		rule.setJournalHelper("JournalHelper.createJournal");
-		rule.setName("Settlement");
 		rule.setPackageName("org.saravana");
 		return rule;
 	}
@@ -81,8 +79,6 @@ public class RuleController {
 		List<Rule> rules = new ArrayList<>();
 		for (int i = 0; i < 5; i++) {
 			Rule rule = getRule("");
-			rule.setId(i);
-			rule.setName(rule.getName() + i);
 			rule.getControlData().setId(i);
 			rule.getCriteria().setId(i);
 			rule.getJournalData().setId(i);

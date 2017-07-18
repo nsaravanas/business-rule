@@ -98,7 +98,7 @@
 										<td>
 											<div class="btn-group">
 												<button class="btn btn-primary" data-ng-disabled="model.user == 'Developer'"
-													data-ng-click="addField(model.data.criteria)">Add Row</button>
+													data-ng-click="addField(model.data, model.data.criteria, 'criteria')">Add Row</button>
 												<button class="btn btn-success" data-ng-click="saveFields(model.data, model.data.criteria, 'criteria')">Save
 													Criteria</button>
 											</div>
@@ -142,7 +142,7 @@
 										<td>
 											<div class="btn-group">
 												<button class="btn btn-primary" data-ng-disabled="model.user == 'Developer'"
-													data-ng-click="addField(model.data.journalData)">Add Row</button>
+													data-ng-click="addField(model.data, model.data.journalData, 'journal')">Add Row</button>
 												<button class="btn btn-success" data-ng-click="saveFields(model.data, model.data.journalData, 'journal')">Save
 													Journal</button>
 											</div>
@@ -186,7 +186,7 @@
 										<td>
 											<div class="btn-group">
 												<button class="btn btn-primary" data-ng-disabled="model.user == 'Developer'"
-													data-ng-click="addField(model.data.controlData)">Add Row</button>
+													data-ng-click="addField(model.data, model.data.controlData, 'control')">Add Row</button>
 												<button class="btn btn-success" data-ng-click="saveFields(model.data, model.data.controlData, 'control')">Save
 													Control</button>
 											</div>
