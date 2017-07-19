@@ -59,18 +59,43 @@
 		</div>
 
 		<div class="row">
-			<br></br>
-		</div>
-
-		<div class="row">
 			<div class="panel-group" id="accordion">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#accordion" href="#collapse0">Basic Details</a>
+						</h4>
+					</div>
+					<div id="collapse0" class="panel-collapse collapse in">
+						<div class="panel-body">
+							<form class="form-inline">
+								<div class="form-group">
+									<label for="email">Rule name</label> <input data-ng-model="model.data.name" type="text" class="form-control"
+										id="text">
+								</div>
+								<div class="form-group">
+									<label for="pwd">Rule ID</label> <input data-ng-model="model.data.id" type="text" class="form-control"
+										id="text">
+								</div>
+								<div class="checkbox">
+									<label><input type="checkbox">Remember me</label>
+								</div>
+								<div>
+									<br></br>
+									<button class="btn btn-success" data-ng-click="saveFields()">Save Rule</button>
+								</div>
+							</form>
+
+						</div>
+					</div>
+				</div>
 				<div class="panel panel-primary">
 					<div class="panel-heading">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Matching Criteria</a>
 						</h4>
 					</div>
-					<div id="collapse1" class="panel-collapse collapse in">
+					<div id="collapse1" class="panel-collapse collapse">
 						<div class="panel-body">
 							<table class="table table-condensed" data-ng-table="criteriaTable">
 								<tbody>
@@ -98,8 +123,7 @@
 											<div class="btn-group">
 												<button class="btn btn-primary" data-ng-disabled="model.user == 'Developer'"
 													data-ng-click="addField('criteria')">Add Row</button>
-												<button class="btn btn-success" data-ng-click="saveFields(model.data, model.data.criteria, 'criteria')">Save
-													Criteria</button>
+												<button class="btn btn-success" data-ng-click="saveFields()">Save Criteria</button>
 											</div>
 										</td>
 									</tr>
@@ -142,8 +166,7 @@
 											<div class="btn-group">
 												<button class="btn btn-primary" data-ng-disabled="model.user == 'Developer'"
 													data-ng-click="addField('journal')">Add Row</button>
-												<button class="btn btn-success" data-ng-click="saveFields(model.data, model.data.journalData, 'journal')">Save
-													Journal</button>
+												<button class="btn btn-success" data-ng-click="saveFields()">Save Journal</button>
 											</div>
 										</td>
 									</tr>
@@ -186,8 +209,7 @@
 											<div class="btn-group">
 												<button class="btn btn-primary" data-ng-disabled="model.user == 'Developer'"
 													data-ng-click="addField('control')">Add Row</button>
-												<button class="btn btn-success" data-ng-click="saveFields(model.data, model.data.controlData, 'control')">Save
-													Control</button>
+												<button class="btn btn-success" data-ng-click="saveFields()">Save Control</button>
 											</div>
 										</td>
 									</tr>
