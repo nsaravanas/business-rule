@@ -1,12 +1,33 @@
 package org.saravana.boot.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Field {
 
+	@Id
+	@GeneratedValue
 	private Integer id;
+
+	@Column
 	private String name;
+
+	@Column
+	@Enumerated(EnumType.STRING)
 	private Condition condition;
+
+	@Column
 	private String field;
+
+	@Column
 	private String value;
+
+	@Column
 	private String override;
 
 	public Integer getId() {

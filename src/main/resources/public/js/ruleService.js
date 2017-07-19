@@ -11,6 +11,14 @@ app.service('ruleService', function($http) {
 		});
 	};
 
+	this.saveRule = function(rule) {
+		return $http({
+			method : 'POST',
+			url : '/save',
+			data : rule
+		});
+	};
+
 	this.getRules = function() {
 		return $http({
 			method : 'GET',

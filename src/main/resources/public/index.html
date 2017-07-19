@@ -47,9 +47,8 @@
 					</select>
 				</div>
 				<div class="btn-group">
-					<button class="btn btn-success">Create</button>
-					<button class="btn btn-info">Edit</button>
-					<button class="btn btn-warning">Clone</button>
+					<button class="btn btn-success">Save</button>
+					<button class="btn btn-warning">Edit</button>
 					<button class="btn btn-danger">Delete</button>
 				</div>
 			</form>
@@ -76,7 +75,7 @@
 							<table class="table table-condensed" data-ng-table="criteriaTable">
 								<tbody>
 									<tr data-ng-repeat="field in model.data.criteria.fields track by $index">
-										<td><input type="text" value="{{field.name}}" data-ng-model="field.name"
+										<td><input type="text" size="20" expand-to="200px" value="{{field.name}}" data-ng-model="field.name"
 											data-ng-readonly="model.user == 'Developer'" class="form-control" /></td>
 										<td><select data-ng-model="field.condition" data-ng-disabled="model.user == 'Developer'"
 											class="form-control">
@@ -98,7 +97,7 @@
 										<td>
 											<div class="btn-group">
 												<button class="btn btn-primary" data-ng-disabled="model.user == 'Developer'"
-													data-ng-click="addField(model.data, model.data.criteria, 'criteria')">Add Row</button>
+													data-ng-click="addField('criteria')">Add Row</button>
 												<button class="btn btn-success" data-ng-click="saveFields(model.data, model.data.criteria, 'criteria')">Save
 													Criteria</button>
 											</div>
@@ -142,7 +141,7 @@
 										<td>
 											<div class="btn-group">
 												<button class="btn btn-primary" data-ng-disabled="model.user == 'Developer'"
-													data-ng-click="addField(model.data, model.data.journalData, 'journal')">Add Row</button>
+													data-ng-click="addField('journal')">Add Row</button>
 												<button class="btn btn-success" data-ng-click="saveFields(model.data, model.data.journalData, 'journal')">Save
 													Journal</button>
 											</div>
@@ -186,7 +185,7 @@
 										<td>
 											<div class="btn-group">
 												<button class="btn btn-primary" data-ng-disabled="model.user == 'Developer'"
-													data-ng-click="addField(model.data, model.data.controlData, 'control')">Add Row</button>
+													data-ng-click="addField('control')">Add Row</button>
 												<button class="btn btn-success" data-ng-click="saveFields(model.data, model.data.controlData, 'control')">Save
 													Control</button>
 											</div>

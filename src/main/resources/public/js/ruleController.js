@@ -30,21 +30,29 @@ app.controller('ruleController', [ '$scope', '$window', 'ruleService',
 
 			var rulesname = function() {
 				ruleService.getRulesName().then(function(response) {
-					console.log('rules ' + response.data);
 					$scope.model.rulesname = response.data;
 				});
 			};
+
+			var save = function(rule) {
+				ruleService.saveRule(rule).then(function(response) {
+					$scope.model.data = response.data;
+					rulesname();
+				});
+			}
 
 			$scope.reset = function() {
 				$scope.model.selected = {};
 			};
 
 			$scope.deleteField = function(criteria, index) {
-				console.log(index);
 				criteria.fields.splice(index, 1);
 			};
 
-			$scope.addField = function(rule, fields, type) {
+			$scope.addField = function(type) {
+
+				var rule = $scope.model.data;
+
 				var field = {
 					'name' : '',
 					'condition' : 'EQUALS',
@@ -77,19 +85,9 @@ app.controller('ruleController', [ '$scope', '$window', 'ruleService',
 				console.log('add field end');
 			};
 
-			$scope.saveFields = function(rule, fields, type) {
-				console.log('save field begin' + fields.length);
-				switch (type) {
-				case "criteria":
-					rule.criteria.fields = fields;
-					break;
-				case "journal":
-					rule.journalData.fields = fields;
-					break;
-				case "control":
-					rule.controlData.fields = fields;
-					break;
-				}
+			$scope.saveFields = function() {
+				var rule = $scope.model.data;
+				save(rule);
 				console.log('save field end');
 			};
 
@@ -103,51 +101,6 @@ app.controller('ruleController', [ '$scope', '$window', 'ruleService',
 					rule($scope.model.selected);
 				}
 			}
-
-			// var stubRule = function() {
-			// return {
-			// "id" : -1,
-			// "name" : null,
-			// "packageName" : null,
-			// "author" : null,
-			// "journalHelper" : null,
-			// "controlHelper" : null,
-			// "criteria" : {
-			// "id" : -1,
-			// "fields" : [ {
-			// "id" : -1,
-			// "name" : null,
-			// "condition" : null,
-			// "field" : null,
-			// "value" : null,
-			// "override" : null
-			// } ],
-			// "override" : null
-			// },
-			// "journalData" : {
-			// "id" : -1,
-			// "fields" : [ {
-			// "id" : -1,
-			// "name" : null,
-			// "condition" : null,
-			// "field" : null,
-			// "value" : null,
-			// "override" : null
-			// } ]
-			// },
-			// "controlData" : {
-			// "id" : -1,
-			// "fields" : [ {
-			// "id" : -1,
-			// "name" : null,
-			// "condition" : null,
-			// "field" : null,
-			// "value" : null,
-			// "override" : null
-			// } ]
-			// }
-			// }
-			// };
 
 			loadConditions();
 			rules();

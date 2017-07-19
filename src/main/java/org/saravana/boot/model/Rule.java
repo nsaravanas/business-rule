@@ -1,15 +1,39 @@
 package org.saravana.boot.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
+@Entity
 public class Rule {
 
+	@Id
+	@GeneratedValue
 	private Integer id;
+
+	@Column
 	private String name;
+
+	@Column
 	private String packageName;
+
+	@Column
 	private String author;
+
+	@Column
 	private String journalHelper;
+	@Column
 	private String controlHelper;
+
+	@OneToOne
 	private MatchCriteria criteria;
+
+	@OneToOne
 	private Data journalData;
+
+	@OneToOne
 	private Data controlData;
 
 	public Integer getId() {
