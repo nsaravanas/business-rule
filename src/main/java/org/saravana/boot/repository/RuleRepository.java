@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.saravana.boot.model.Rule;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 //@Repository
@@ -20,7 +19,7 @@ public class RuleRepository {
 	private List<Rule> rules = new ArrayList<>();
 
 	public Rule findOneByRuleName(String name) {
-		return rules.stream().filter(r -> r.getName().equalsIgnoreCase(name)).findFirst().orElse(new Rule());
+		return rules.stream().findFirst().orElse(new Rule());
 	}
 
 	public List<Rule> findAll() {

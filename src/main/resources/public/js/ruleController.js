@@ -37,6 +37,7 @@ app.controller('ruleController', [ '$scope', '$window', 'ruleService',
 			var save = function(rule) {
 				ruleService.saveRule(rule).then(function(response) {
 					$scope.model.data = response.data;
+					$scope.model.selected = response.data.name;
 					rulesname();
 				});
 			}
