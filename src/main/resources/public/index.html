@@ -24,23 +24,49 @@
 
 <body data-ng-app="rule" data-ng-controller="ruleController">
 
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">Drool Rule Maker</a>
+			</div>
+			<div class="collapse navbar-collapse" id="myNavbar">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#"><span class="glyphicon glyphicon-screenshot"></span>Role</a></li>
+					<li><select data-ng-model="model.user"">
+							<option data-ng-selected="{{model.user}}" data-ng-repeat="t in model.types">{{t}}</option>
+					</select></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div>
+		<div class="col-md-8">
+			<div class="container text-left">
+				<h1>
+					<p class="form-control-static">Drool Rule Maker</p>
+				</h1>
+			</div>
+		</div>
+		<div class="col-md-4"></div>
+	</div>
+
+	<form class="form-horizontal">
+		<div class="form-group">
+			<div class="col-sm-8">
+				<p class="form-control-static input-md">someone@example.com</p>
+			</div>
+		</div>
+	</form>
+
 	<div class="container">
 
 		<div class="row">
-			<div class="col-sm-8" align="center">Drool Rule Maker</div>
-			<div class="col-sm-2" align="right">
-				<button type="button" class="btn btn-info btn-md">Role</button>
-			</div>
-			<div class="col-sm-2" align="left">
-				<select data-ng-model="model.user" class="form-control">
-					<option data-ng-selected="{{model.user}}" data-ng-repeat="t in model.types">{{t}}</option>
-				</select>
-			</div>
-		</div>
-
-		<div class="row">
 			<form class="form-inline">
-				<div class="form-group">
+				<div class="form-group ">
 					<select data-ng-model="model.selected" class="form-control" data-ng-change="updateRule()">
 						<option value="" disabled selected>Please select...</option>
 						<option data-ng-repeat="n in model.rulesname">{{n}}</option>
@@ -61,20 +87,24 @@
 		<div class="row">
 			<div class="panel-group" id="accordion">
 				<div class="panel panel-primary">
-					<div class="panel-heading">
-						<h4 class="panel-title">
-							<a data-toggle="collapse" data-parent="#accordion" href="#collapse0">Basic Details</a>
+					<div class="panel-heading clearfix">
+						<h4 class="panel-title pull-left">
+							<a class="form-control-static input-md" data-toggle="collapse" style="padding-top: 7.5px;"
+								data-parent="#accordion" href="#collapse0"> Basic Details</a>
 						</h4>
+						<div class="btn-group pull-right">
+							<a href="#" class="btn btn-primary btn-sm">Save</a> <a href="#" class="btn btn-primary btn-sm">Delete</a>
+						</div>
 					</div>
 					<div id="collapse0" class="panel-collapse collapse in">
 						<div class="panel-body">
 							<form class="form-inline">
-								<div class="form-group">
-									<label for="email">Rule name</label> <input data-ng-model="model.data.name" type="text" class="form-control"
-										id="text">
+								<div class="form-group form-group-sm">
+									<label for="email">Rule name</label> <input data-ng-model="model.data.name" type="text"
+										class="form-control input-sm" id="text">
 								</div>
-								<div class="form-group">
-									<label for="pwd">Rule ID</label> <input data-ng-model="model.data.id" type="text" class="form-control"
+								<div class="form-group form-group-sm">
+									<label for="pwd">Rule ID</label> <input data-ng-model="model.data.id" type="text" class="form-control input-sm"
 										id="text">
 								</div>
 								<div class="checkbox">
@@ -97,35 +127,26 @@
 					</div>
 					<div id="collapse1" class="panel-collapse collapse">
 						<div class="panel-body">
-							<table class="table table-condensed" data-ng-table="criteriaTable">
+							<table class="table" data-ng-table="criteriaTable">
 								<tbody>
 									<tr data-ng-repeat="field in model.data.criteria.fields track by $index">
-										<td><input type="text" size="20" expand-to="200px" value="{{field.name}}" data-ng-model="field.name"
+										<td class="input-sm col-sm-2"><input type="text" value="{{field.name}}" data-ng-model="field.name"
 											data-ng-readonly="model.user == 'Developer'" class="form-control" /></td>
-										<td><select data-ng-model="field.condition" data-ng-disabled="model.user == 'Developer'"
-											class="form-control">
+										<td class="input-sm col-sm-2"><select data-ng-model="field.condition"
+											data-ng-disabled="model.user == 'Developer'" class="form-control input-sm">
 												<option data-ng-selected="{{field.condition}}" data-ng-repeat="c in model.conditions">{{c}}</option>
 										</select></td>
-										<td><input type="text" value="{{field.value}}" data-ng-model="field.value"
-											data-ng-readonly="model.user == 'Developer'" class="form-control" /></td>
-										<td>
+										<td class="input-sm col-sm-2"><input type="text" value="{{field.value}}" data-ng-model="field.value"
+											data-ng-readonly="model.user == 'Developer'" class="form-control input-sm" /></td>
+										<td class="input-sm col-sm-2">
 											<button class="btn btn-danger" data-ng-click="deleteField(model.data.criteria, $index)"
 												data-ng-hide="model.data.criteria.fields.length == 1" data-ng-disabled="model.user == 'Developer'"
-												class="form-control">Delete</button>
+												class="form-control  input-sm">Delete</button>
 										</td>
-										<td><input type="text" value="{{field.field}}" data-ng-model="field.field"
-											data-ng-show="model.user == 'Developer'" class="form-control" /></td>
-										<td><input type="text" value="{{field.override}}" data-ng-model="field.override"
-											data-ng-show="model.user == 'Developer'" class="form-control" /></td>
-									</tr>
-									<tr>
-										<td>
-											<div class="btn-group">
-												<button class="btn btn-primary" data-ng-disabled="model.user == 'Developer'"
-													data-ng-click="addField('criteria')">Add Row</button>
-												<button class="btn btn-success" data-ng-click="saveFields()">Save Criteria</button>
-											</div>
-										</td>
+										<td class="input-sm col-sm-2"><input type="text" value="{{field.field}}" data-ng-model="field.field"
+											data-ng-show="model.user == 'Developer'" class="form-control  input-sm" /></td>
+										<td class="input-sm col-sm-2"><input type="text" value="{{field.override}}"
+											data-ng-model="field.override" data-ng-show="model.user == 'Developer'" class="form-control  input-sm" /></td>
 									</tr>
 								</tbody>
 							</table>
