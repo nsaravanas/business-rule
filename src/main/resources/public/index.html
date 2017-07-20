@@ -43,28 +43,27 @@
 		</div>
 	</nav>
 
-	<div>
-		<div class="col-md-8">
-			<div class="container text-left">
-				<h1>
-					<p class="form-control-static">Drool Rule Maker</p>
-				</h1>
-			</div>
+	<form class="form-inline">
+		<div class="form-group text-left">
+			<p class="form-control-static">
+			<h1>Drool Rule Maker</h1>
 		</div>
-		<div class="col-md-4"></div>
-	</div>
-
-	<form class="form-horizontal">
-		<div class="form-group">
-			<div class="col-sm-8">
-				<p class="form-control-static input-md">someone@example.com</p>
-			</div>
+		<div class="form-group text-right">
+			<select data-ng-model="model.selected" class="form-control" data-ng-change="updateRule()">
+				<option value="" disabled selected>Please select...</option>
+				<option data-ng-repeat="n in model.rulesname">{{n}}</option>
+			</select>
+		</div>
+		<div class="btn-group text-right">
+			<button class="btn btn-success">Save</button>
+			<button class="btn btn-warning">Edit</button>
+			<button class="btn btn-danger">Delete</button>
 		</div>
 	</form>
 
 	<div class="container">
 
-		<div class="row">
+		<!-- 		<div class="row">
 			<form class="form-inline">
 				<div class="form-group ">
 					<select data-ng-model="model.selected" class="form-control" data-ng-change="updateRule()">
@@ -78,7 +77,7 @@
 					<button class="btn btn-danger">Delete</button>
 				</div>
 			</form>
-		</div>
+		</div> -->
 
 		<div class="page-header">
 			<h1>{{model.data.name}}</h1>
@@ -88,12 +87,20 @@
 			<div class="panel-group" id="accordion">
 				<div class="panel panel-primary">
 					<div class="panel-heading clearfix">
-						<h4 class="panel-title pull-left">
-							<a class="form-control-static input-md" data-toggle="collapse" style="padding-top: 7.5px;"
-								data-parent="#accordion" href="#collapse0"> Basic Details</a>
-						</h4>
-						<div class="btn-group pull-right">
-							<a href="#" class="btn btn-primary btn-sm">Save</a> <a href="#" class="btn btn-primary btn-sm">Delete</a>
+						<div class="panel-title pull-left">
+							<a class="form-control-static input-md col-centered" data-toggle="collapse" data-parent="#accordion"
+								href="#collapse0"> <b>Basic Details</b></a>
+						</div>
+						<div class="btn-group btn-group-sm pull-right">
+							<button type="button" class="btn btn-info">
+								<span class="glyphicon glyphicon-plus"></span>
+							</button>
+							<button type="button" class="btn btn-warning">
+								<span class="glyphicon glyphicon-minus"></span>
+							</button>
+							<button type="button" class="btn btn-success">
+								<span class="glyphicon glyphicon-ok-sign"></span>
+							</button>
 						</div>
 					</div>
 					<div id="collapse0" class="panel-collapse collapse in">
@@ -107,15 +114,7 @@
 									<label for="pwd">Rule ID</label> <input data-ng-model="model.data.id" type="text" class="form-control input-sm"
 										id="text">
 								</div>
-								<div class="checkbox">
-									<label><input type="checkbox">Remember me</label>
-								</div>
-								<div>
-									<br></br>
-									<button class="btn btn-success" data-ng-click="saveFields()">Save Rule</button>
-								</div>
 							</form>
-
 						</div>
 					</div>
 				</div>
