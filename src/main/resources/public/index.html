@@ -44,44 +44,30 @@
 	</nav>
 
 	<form class="form-inline">
-		<div class="form-group text-left">
-			<p class="form-control-static">
-			<h1>Drool Rule Maker</h1>
-		</div>
-		<div class="form-group text-right">
-			<select data-ng-model="model.selected" class="form-control" data-ng-change="updateRule()">
-				<option value="" disabled selected>Please select...</option>
+
+		<div class="col-md-9"></div>
+
+		<div class="form-group">
+			<select data-ng-model="model.selected" class="form-control col-xs-6" data-ng-change="updateRule()">
+				<option value="" disabled selected>Select rule</option>
 				<option data-ng-repeat="n in model.rulesname">{{n}}</option>
 			</select>
 		</div>
-		<div class="btn-group text-right">
-			<button class="btn btn-success">Save</button>
-			<button class="btn btn-warning">Edit</button>
-			<button class="btn btn-danger">Delete</button>
+		<div class="btn-group btn-group-md">
+			<button type="button" class="btn btn-primary">
+				<span class="glyphicon glyphicon-floppy-disk"></span>
+			</button>
+			<button type="button" class="btn btn-primary">
+				<span class="glyphicon glyphicon-floppy-saved"></span>
+			</button>
+			<button type="button" class="btn btn-primary">
+				<span class="glyphicon glyphicon-floppy-remove"></span>
+			</button>
 		</div>
 	</form>
+	<br>
 
 	<div class="container">
-
-		<!-- 		<div class="row">
-			<form class="form-inline">
-				<div class="form-group ">
-					<select data-ng-model="model.selected" class="form-control" data-ng-change="updateRule()">
-						<option value="" disabled selected>Please select...</option>
-						<option data-ng-repeat="n in model.rulesname">{{n}}</option>
-					</select>
-				</div>
-				<div class="btn-group">
-					<button class="btn btn-success">Save</button>
-					<button class="btn btn-warning">Edit</button>
-					<button class="btn btn-danger">Delete</button>
-				</div>
-			</form>
-		</div> -->
-
-		<div class="page-header">
-			<h1>{{model.data.name}}</h1>
-		</div>
 
 		<div class="row">
 			<div class="panel-group" id="accordion">
