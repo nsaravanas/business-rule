@@ -85,13 +85,16 @@
 
 		<div class="row">
 			<div class="panel-group" id="accordion">
-				<div class="panel panel-primary">
+				<div class="panel panel-primary panel-caret">
 					<div class="panel-heading clearfix">
 						<div class="panel-title pull-left">
 							<a class="form-control-static input-md col-centered" data-toggle="collapse" data-parent="#accordion"
 								href="#collapse0"> <b>Basic Details</b></a>
 						</div>
 						<div class="btn-group btn-group-sm pull-right">
+							<button type="button" class="btn btn-primary">
+								<span class="up-down glyphicon glyphicon-upload"></span>
+							</button>
 							<button type="button" class="btn btn-info">
 								<span class="glyphicon glyphicon-plus"></span>
 							</button>
@@ -119,10 +122,22 @@
 					</div>
 				</div>
 				<div class="panel panel-primary">
-					<div class="panel-heading">
-						<h4 class="panel-title">
-							<a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Matching Criteria</a>
-						</h4>
+					<div class="panel-heading clearfix">
+						<div class="panel-title pull-left">
+							<a class="form-control-static input-md col-centered" data-toggle="collapse" data-parent="#accordion"
+								href="#collapse1"> <b>Matching Criteria</b></a>
+						</div>
+						<div class="btn-group btn-group-sm pull-right">
+							<button type="button" class="btn btn-info">
+								<span class="glyphicon glyphicon-plus"></span>
+							</button>
+							<button type="button" class="btn btn-warning">
+								<span class="glyphicon glyphicon-minus"></span>
+							</button>
+							<button type="button" class="btn btn-success">
+								<span class="glyphicon glyphicon-ok-sign"></span>
+							</button>
+						</div>
 					</div>
 					<div id="collapse1" class="panel-collapse collapse">
 						<div class="panel-body">
@@ -257,5 +272,14 @@
 
 
 	</div>
+	<script type="text/javascript">
+		function toggleIcon(e) {
+			$(e.target).prev('.panel-heading').find(".up-down").toggleClass(
+					'glyphicon-upload glyphicon-download');
+		}
+		$('.panel-group').on('hidden.bs.collapse', toggleIcon);
+		$('.panel-group').on('shown.bs.collapse', toggleIcon);
+	</script>
+
 </body>
 </html>
