@@ -24,9 +24,11 @@
 
 <body data-ng-app="rule" data-ng-controller="ruleController">
 
+	<br></br>
+
 	<form class="form-inline pull-right">
 		<div class="form-group">
-			<label for="roles">Select Role:</label> <select id="roles" data-ng-model="model.user" class="form-control">
+			<label for="roles">Role </label> <select id="roles" data-ng-model="model.user" class="form-control">
 				<option data-ng-repeat="n in model.types">{{n}}</option>
 			</select>
 		</div>
