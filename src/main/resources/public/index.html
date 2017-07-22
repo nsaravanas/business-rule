@@ -35,7 +35,7 @@
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="#"><span class="glyphicon glyphicon-screenshot"></span>Role</a></li>
-					<li><select data-ng-model="model.user"">
+					<li><select data-ng-model="model.user">
 							<option data-ng-selected="{{model.user}}" data-ng-repeat="t in model.types">{{t}}</option>
 					</select></li>
 				</ul>
@@ -43,12 +43,26 @@
 		</div>
 	</nav>
 
-	<form class="form-inline">
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<div class="navbar-header ">
+				<a class="navbar-brand active" href="#">Drool Rule Maker</a>
+			</div>
+			<ul class="nav navbar-nav pull-right">
+				<li><a href="#"><span class="glyphicon glyphicon-screenshot"></span> Role</a></li>
+				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"> <span id="selected">{{model.user}}</span>
+				</a>
+					<ul class="dropdown-menu" data-ng-repeat="t in model.types" data-ng-selected="{{model.user}}">
+						<li><a data-ng-repeat="t in model.types" href="#">{{t}}</a></li>
+					</ul></li>
+			</ul>
+		</div>
+	</nav>
 
-		<div class="col-md-9"></div>
+	<form class="form-inline pull-right">
 
 		<div class="form-group">
-			<select data-ng-model="model.selected" class="form-control col-xs-6" data-ng-change="updateRule()">
+			<select data-ng-model="model.selected" class="form-control" data-ng-change="updateRule()">
 				<option value="" disabled selected>Select rule</option>
 				<option data-ng-repeat="n in model.rulesname">{{n}}</option>
 			</select>
@@ -64,8 +78,10 @@
 				<span class="glyphicon glyphicon-floppy-remove"></span>
 			</button>
 		</div>
+		<div class="col-sm-2"></div>
 	</form>
 	<br>
+	<br />
 
 	<div class="container">
 
@@ -256,7 +272,7 @@
 		</div>
 
 		<div class="page-footer">
-			<h1>Drool Rule Maker</h1>
+			<h3>Drool Rule Maker</h3>
 		</div>
 
 
@@ -268,6 +284,11 @@
 		}
 		$('.panel-group').on('hidden.bs.collapse', toggleIcon);
 		$('.panel-group').on('shown.bs.collapse', toggleIcon);
+		/* 
+		 $('.dropdown-menu li a').click(function() {
+		 $('#selected').text($(this).text());
+		 $scope.model.user = $(this).text();
+		 }); */
 	</script>
 
 </body>
