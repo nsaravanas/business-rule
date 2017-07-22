@@ -184,9 +184,11 @@ app
 							};
 
 							$scope.setHelper = function(type) {
+
 								var helpers = $scope.model.helpers;
-								if (type == 'control') {
-									console.log('selection ' + $scope.model.data.jour_curr);
+								if (type == 'journal') {
+									console.log('selection '
+											+ $scope.model.data.jour_curr);
 									if ($scope.model.data.jour_curr == $scope.model.data.jour_prev) {
 										console.log('set helper matched');
 										return;
@@ -195,13 +197,15 @@ app
 										if ($scope.model.data.jour_curr == helpers[i].name) {
 											$scope.model.data.jour_prev = $scope.model.data.jour_curr;
 											$scope.model.data.journalHelper = helpers[i];
-											console.log('selected ' + helpers[i].name);
+											console.log('selected '
+													+ helpers[i].name);
 										}
 									}
 									console.log('set helper end');
 								}
-								if (type == 'journal') {
-									console.log('selection ' + $scope.model.data.cntl_curr);
+								if (type == 'control') {
+									console.log('selection '
+											+ $scope.model.data.cntl_curr);
 									if ($scope.model.data.cntl_curr == $scope.model.data.cntl_prev) {
 										console.log('set helper matched');
 										return;
@@ -210,7 +214,8 @@ app
 										if ($scope.model.data.cntl_curr == helpers[i].name) {
 											$scope.model.data.cntl_prev = $scope.model.data.cntl_curr;
 											$scope.model.data.controlHelper = helpers[i];
-											console.log('selected ' + helpers[i].name);
+											console.log('selected '
+													+ helpers[i].name);
 										}
 									}
 									console.log('set helper end');
