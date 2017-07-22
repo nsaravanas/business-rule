@@ -19,11 +19,23 @@ public class RuleRepository {
 	private List<Rule> rules = new ArrayList<>();
 
 	public Rule findOneByRuleName(String name) {
-		return rules.stream().findFirst().orElse(new Rule());
+		return rules.stream().findFirst().get();
 	}
 
 	public List<Rule> findAll() {
+		if (rules.isEmpty()) {
+			init();
+		}
 		return this.rules;
+	}
+
+	private void init() {
+		Rule r = new Rule();
+		r.setAuthor("nagasara");
+		r.setId(1);
+		r.setName("Settlement Deliver");
+		r.setPackageName("org.saravana.drools.rule");
+		rules.add(r);
 	}
 
 	public Rule save(Rule rule) {

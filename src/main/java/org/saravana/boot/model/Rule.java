@@ -1,39 +1,23 @@
 package org.saravana.boot.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-
-@Entity
 public class Rule {
 
-	@Id
-	@GeneratedValue
 	private Integer id;
 
-	@Column
 	private String name;
 
-	@Column
 	private String packageName;
 
-	@Column
 	private String author;
 
-	@Column
-	private String journalHelper;
-	@Column
-	private String controlHelper;
+	private Helper journalHelper;
 
-	@OneToOne
+	private Helper controlHelper;
+
 	private MatchCriteria criteria;
 
-	@OneToOne
 	private Data journalData;
 
-	@OneToOne
 	private Data controlData;
 
 	public Integer getId() {
@@ -68,20 +52,20 @@ public class Rule {
 		this.author = author;
 	}
 
-	public String getJournalHelper() {
-		return journalHelper;
-	}
-
-	public void setJournalHelper(String journalHelper) {
-		this.journalHelper = journalHelper;
-	}
-
-	public String getControlHelper() {
+	public Helper getControlHelper() {
 		return controlHelper;
 	}
 
-	public void setControlHelper(String controlHelper) {
+	public Helper getJournalHelper() {
+		return journalHelper;
+	}
+
+	public void setControlHelper(Helper controlHelper) {
 		this.controlHelper = controlHelper;
+	}
+
+	public void setJournalHelper(Helper journalHelper) {
+		this.journalHelper = journalHelper;
 	}
 
 	public MatchCriteria getCriteria() {

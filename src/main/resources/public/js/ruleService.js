@@ -40,4 +40,11 @@ app.service('ruleService', function($http) {
 		});
 	};
 
+	this.getHelpers = function() {
+		return $http({
+			method : 'GET',
+			url : '/helpers'
+		});
+	};
+
 });

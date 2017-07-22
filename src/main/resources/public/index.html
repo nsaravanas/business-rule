@@ -24,52 +24,57 @@
 
 <body data-ng-app="rule" data-ng-controller="ruleController">
 
-	<br></br>
-
-	<form class="form-inline pull-right">
-		<div class="form-group">
-			<label for="roles">Role </label> <select id="roles" data-ng-model="model.user" class="form-control">
-				<option data-ng-repeat="n in model.types">{{n}}</option>
-			</select>
-		</div>
-		<div class="col-sm-2"></div>
-	</form>
-	<br>
-	<br>
-	<br>
-
-	<form class="form-inline pull-right">
-		<div class="form-group">
-			<select data-ng-model="model.selected" class="form-control" data-ng-change="updateRule()">
-				<option value="" disabled selected>Select rule</option>
-				<option data-ng-repeat="n in model.rulesname">{{n}}</option>
-			</select>
-		</div>
-		<div class="btn-group btn-group-md">
-			<button type="button" class="btn btn-primary" data-toggle="tooltip" title="New">
-				<span class="glyphicon glyphicon-floppy-disk"></span>
-			</button>
-			<button type="button" class="btn btn-primary" data-toggle="tooltip" title="Edit">
-				<span class="glyphicon glyphicon-floppy-open"></span>
-			</button>
-			<button type="button" class="btn btn-primary" data-toggle="tooltip" title="Save">
-				<span class="glyphicon glyphicon-floppy-saved"></span>
-			</button>
-			<button type="button" class="btn btn-primary" data-toggle="tooltip" title="Delete">
-				<span class="glyphicon glyphicon-floppy-remove"></span>
-			</button>
-		</div>
-		<div class="col-sm-2"></div>
-	</form>
-	<br>
-	<br>
-
 	<div class="container">
+
 		<div class="row">
-			<h2>
-				<a>{{model.data.name}}</a>
-			</h2>
+			<nav class="navbar navbar-inverse">
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<a class="navbar-brand" href="#" style="color: white;">Drools rule maker</a>
+					</div>
+				</div>
+			</nav>
 		</div>
+
+		<div class="row">
+			<form class="form-inline">
+				<div class="form-group pull-right">
+					<label for="roles">Role </label> <select id="roles" data-ng-model="model.user" class="form-control">
+						<option data-ng-repeat="n in model.types">{{n}}</option>
+					</select>
+				</div>
+			</form>
+		</div>
+		<br>
+
+		<div class="row">
+			<form class="form-inline">
+				<div class="form-group pull-left">
+					<h2>{{model.data.name}}</h2>
+				</div>
+				<div class="btn-group btn-group-md pull-right">
+					<button type="button" class="btn btn-primary" data-toggle="tooltip" title="New" data-ng-click="createRule()">
+						<span class="glyphicon glyphicon-floppy-disk"></span>
+					</button>
+					<button type="button" class="btn btn-primary" data-toggle="tooltip" title="Edit" data-ng-click="editRule()">
+						<span class="glyphicon glyphicon-floppy-open"></span>
+					</button>
+					<button type="button" class="btn btn-primary" data-toggle="tooltip" title="Save" data-ng-click="save()">
+						<span class="glyphicon glyphicon-floppy-saved"></span>
+					</button>
+					<button type="button" class="btn btn-primary" data-toggle="tooltip" title="Delete" data-ng-click="deleteRule()">
+						<span class="glyphicon glyphicon-floppy-remove"></span>
+					</button>
+				</div>
+				<div class="form-group pull-right">
+					<select data-ng-model="model.selected" class="form-control" data-ng-change="updateRule()">
+						<option value="" disabled selected>Select rule</option>
+						<option data-ng-repeat="n in model.rulesname">{{n}}</option>
+					</select>
+				</div>
+			</form>
+		</div>
+		<br>
 		<div class="row">
 			<div class="panel-group" id="accordion">
 				<div class="panel panel-primary panel-caret">
@@ -98,11 +103,11 @@
 							<form class="form-inline">
 								<div class="form-group form-group-sm">
 									<label for="email">Rule name</label> <input data-ng-model="model.data.name" type="text"
-										class="form-control input-sm" id="text">
+										class="form-control input-sm" id="text" data-ng-readonly="model.user == 'Developer'">
 								</div>
 								<div class="form-group form-group-sm">
 									<label for="pwd">Rule ID</label> <input data-ng-model="model.data.id" type="text" class="form-control input-sm"
-										id="text">
+										id="text" data-ng-readonly="model.user == 'Developer'">
 								</div>
 							</form>
 						</div>
@@ -118,13 +123,15 @@
 							<a class="btn btn-primary" data-toggle="collapse" data-parent="#accordion" href="#collapse1"> <span
 								class="up-down glyphicon glyphicon-download"></span>
 							</a>
-							<button type="button" class="btn btn-primary">
+							<button type="button" class="btn btn-primary" data-toggle="tooltip" title="Add"
+								data-ng-click="addRow('criteria')">
 								<span class="glyphicon glyphicon-plus"></span>
 							</button>
-							<button type="button" class="btn btn-primary">
+							<button type="button" class="btn btn-primary" data-toggle="tooltip" title="Delete"
+								data-ng-click="deleteRow('criteria')">
 								<span class="glyphicon glyphicon-minus"></span>
 							</button>
-							<button type="button" class="btn btn-primary">
+							<button type="button" class="btn btn-primary" data-toggle="tooltip" title="Save" data-ng-click="save()">
 								<span class="glyphicon glyphicon-ok-sign"></span>
 							</button>
 						</div>
@@ -135,17 +142,17 @@
 								<tbody>
 									<tr data-ng-repeat="field in model.data.criteria.fields track by $index">
 										<td class="input-sm col-sm-2"><input type="text" value="{{field.name}}" data-ng-model="field.name"
-											data-ng-readonly="model.user == 'Developer'" class="form-control" /></td>
-										<td class="input-sm col-sm-2"><select data-ng-model="field.condition"
-											data-ng-disabled="model.user == 'Developer'" class="form-control input-sm">
+											class="form-control input-sm" /></td>
+										<td class="input-sm col-sm-2"><select data-ng-model="field.condition" class="form-control input-sm">
 												<option data-ng-selected="{{field.condition}}" data-ng-repeat="c in model.conditions">{{c}}</option>
 										</select></td>
 										<td class="input-sm col-sm-2"><input type="text" value="{{field.value}}" data-ng-model="field.value"
-											data-ng-readonly="model.user == 'Developer'" class="form-control input-sm" /></td>
-										<td class="input-sm col-sm-2">
-											<button class="btn btn-danger" data-ng-click="deleteField(model.data.criteria, $index)"
-												data-ng-hide="model.data.criteria.fields.length == 1" data-ng-disabled="model.user == 'Developer'"
-												class="form-control  input-sm">Delete</button>
+											class="form-control input-sm" /></td>
+										<td class="input-sm col-sm-1">
+											<button type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" title="Delete"
+												data-ng-click="deleteRow('criteria', $index)">
+												<span class="glyphicon glyphicon-remove"></span>
+											</button>
 										</td>
 										<td class="input-sm col-sm-2"><input type="text" value="{{field.field}}" data-ng-model="field.field"
 											data-ng-show="model.user == 'Developer'" class="form-control  input-sm" /></td>
@@ -165,38 +172,30 @@
 					</div>
 					<div id="collapse2" class="panel-collapse collapse">
 						<div class="panel-body">
-							<table class="table table-condensed" data-ng-table="journalDataTable">
-								<tbody>
-									<tr data-ng-repeat="field in model.data.journalData.fields track by $index">
-										<td><input type="text" value="{{field.name}}" data-ng-model="field.name"
-											data-ng-readonly="model.user == 'Developer'" class="form-control" /></td>
-										<td><select data-ng-model="field.condition" data-ng-disabled="model.user == 'Developer'"
-											class="form-control">
-												<option data-ng-selected="{{field.condition}}" data-ng-repeat="c in model.conditions">{{c}}</option>
-										</select></td>
-										<td><input type="text" value="{{field.value}}" data-ng-model="field.value"
-											data-ng-readonly="model.user == 'Developer'" class="form-control" /></td>
-										<td>
-											<button class="btn btn-danger" data-ng-click="deleteField(model.data.journalData, $index)"
-												data-ng-hide="model.data.journalData.fields.length == 1" data-ng-disabled="model.user == 'Developer'"
-												class="form-control">Delete</button>
-										</td>
-										<td><input type="text" value="{{field.field}}" data-ng-model="field.field"
-											data-ng-show="model.user == 'Developer'" class="form-control" /></td>
-										<td><input type="text" value="{{field.override}}" data-ng-model="field.override"
-											data-ng-show="model.user == 'Developer'" class="form-control" /></td>
-									</tr>
-									<tr>
-										<td>
-											<div class="btn-group">
-												<button class="btn btn-primary" data-ng-disabled="model.user == 'Developer'"
-													data-ng-click="addField('journal')">Add Row</button>
-												<button class="btn btn-success" data-ng-click="saveFields()">Save Journal</button>
-											</div>
-										</td>
-									</tr>
-								</tbody>
-							</table>
+							<div class="row">
+								<form class="form-inline">
+									<div class="form-group pull-right">
+										<label for="roles">Journal Helper </label> <select data-ng-model="model.data.jour_curr" class="form-control"
+											data-ng-change="setHelper('journal')">
+											<option data-ng-repeat="h in model.helpers">{{h.name}}</option>
+										</select>
+									</div>
+								</form>
+							</div>
+							<br>
+							<div class="row">
+								<table class="table" data-ng-table="journalTable">
+									<tbody>
+										<tr data-ng-repeat="field in model.data.journalHelper.fields track by $index">
+											<td class="col-sm-2">{{field.name}}</td>
+											<td class="input-sm col-sm-2"><input type="text" value="{{field.value}}" data-ng-model="field.value"
+												class="form-control input-sm" /></td>
+											<td class="input-sm col-sm-2"><input type="text" value="{{field.override}}"
+												data-ng-model="field.override" class="form-control input-sm" /></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -208,38 +207,30 @@
 					</div>
 					<div id="collapse3" class="panel-collapse collapse">
 						<div class="panel-body">
-							<table class="table table-condensed" data-ng-table="controlDataTable">
-								<tbody>
-									<tr data-ng-repeat="field in model.data.controlData.fields track by $index">
-										<td><input type="text" value="{{field.name}}" data-ng-model="field.name"
-											data-ng-readonly="model.user == 'Developer'" class="form-control" /></td>
-										<td><select data-ng-model="field.condition" data-ng-disabled="model.user == 'Developer'"
-											class="form-control">
-												<option data-ng-selected="{{field.condition}}" data-ng-repeat="c in model.conditions">{{c}}</option>
-										</select></td>
-										<td><input type="text" value="{{field.value}}" data-ng-model="field.value"
-											data-ng-readonly="model.user == 'Developer'" class="form-control" /></td>
-										<td>
-											<button class="btn btn-danger" data-ng-click="deleteField(model.data.controlData, $index)"
-												data-ng-hide="model.data.controlData.fields.length == 1" data-ng-disabled="model.user == 'Developer'"
-												class="form-control">Delete</button>
-										</td>
-										<td><input type="text" value="{{field.field}}" data-ng-model="field.field"
-											data-ng-show="model.user == 'Developer'" class="form-control" /></td>
-										<td><input type="text" value="{{field.override}}" data-ng-model="field.override"
-											data-ng-show="model.user == 'Developer'" class="form-control" /></td>
-									</tr>
-									<tr>
-										<td>
-											<div class="btn-group">
-												<button class="btn btn-primary" data-ng-disabled="model.user == 'Developer'"
-													data-ng-click="addField('control')">Add Row</button>
-												<button class="btn btn-success" data-ng-click="saveFields()">Save Control</button>
-											</div>
-										</td>
-									</tr>
-								</tbody>
-							</table>
+							<div class="row">
+								<form class="form-inline">
+									<div class="form-group pull-right">
+										<label for="roles">Control Helper </label> <select data-ng-model="model.data.cntl_curr" class="form-control"
+											data-ng-change="setHelper('control')">
+											<option data-ng-repeat="h in model.helpers">{{h.name}}</option>
+										</select>
+									</div>
+								</form>
+							</div>
+							<br>
+							<div class="row">
+								<table class="table" data-ng-table="controlTable">
+									<tbody>
+										<tr data-ng-repeat="field in model.data.controlHelper.fields track by $index">
+											<td class="col-sm-2">{{field.name}}</td>
+											<td class="input-sm col-sm-2"><input type="text" value="{{field.value}}" data-ng-model="field.value"
+												class="form-control input-sm" /></td>
+											<td class="input-sm col-sm-2"><input type="text" value="{{field.override}}"
+												data-ng-model="field.override" class="form-control input-sm" /></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -271,6 +262,22 @@
 		$('.panel-group').on('shown.bs.collapse', toggleIcon);
 		$(document).ready(function() {
 			$('[data-toggle="tooltip"]').tooltip();
+		});
+		$('.btn-toggle').click(function() {
+			$(this).find('.btn').toggleClass('active');
+			if ($(this).find('.btn-primary').size() > 0) {
+				$(this).find('.btn').toggleClass('btn-primary');
+			}
+			if ($(this).find('.btn-danger').size() > 0) {
+				$(this).find('.btn').toggleClass('btn-danger');
+			}
+			if ($(this).find('.btn-success').size() > 0) {
+				$(this).find('.btn').toggleClass('btn-success');
+			}
+			if ($(this).find('.btn-info').size() > 0) {
+				$(this).find('.btn').toggleClass('btn-info');
+			}
+			$(this).find('.btn').toggleClass('btn-default');
 		});
 	</script>
 

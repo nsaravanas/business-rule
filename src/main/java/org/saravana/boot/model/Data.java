@@ -3,17 +3,10 @@ package org.saravana.boot.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-
-@Entity
 public class Data {
 
-	@Id
 	private Integer id;
 
-	@OneToMany
 	private List<Field> fields = new ArrayList<>();
 
 	public List<Field> getFields() {

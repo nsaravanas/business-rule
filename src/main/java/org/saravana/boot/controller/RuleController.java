@@ -1,11 +1,10 @@
 package org.saravana.boot.controller;
 
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
 
 import org.saravana.boot.model.Condition;
-import org.saravana.boot.model.Field;
+import org.saravana.boot.model.Helper;
 import org.saravana.boot.model.Rule;
 import org.saravana.boot.service.RuleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,28 +26,6 @@ public class RuleController {
 
 	}
 
-	private Rule createRule() {
-		Rule rule = new Rule();
-		Random r = new Random();
-		rule.setId(r.nextInt(100));
-		rule.setName(rule.getName() + r.nextInt(200));
-		rule.setAuthor("nagasara");
-		rule.setControlHelper("JournalHelper.createJournal");
-		rule.setJournalHelper("JournalHelper.createJournal");
-		rule.setPackageName("org.saravana");
-		return rule;
-	}
-
-	private Field createField() {
-		Field field = new Field();
-		field.setCondition(Condition.EQUALS);
-		field.setField("eventSubType");
-		field.setName("event sub type");
-		field.setValue("123/345");
-		field.setOverride("123 or 345");
-		return field;
-	}
-
 	@RequestMapping(value = "/rules", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<Rule> getRules() {
 		return service.getAllRules();
@@ -61,13 +38,21 @@ public class RuleController {
 
 	@RequestMapping(value = "/rulesname", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<String> getRulesName() {
-		System.out.println("getRulesName called");
 		return service.getAllRules().stream().map(Rule::getName).collect(Collectors.toList());
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Rule saveRule(Rule rule) {
-		System.out.println("save");
 		return service.saveRule(rule);
+	}
+
+	@RequestMapping(value = "/helpers", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<Helper> getHelpers() {
+		return service.getHelpers();
+	}
+
+	public Rule createRule() {
+		Rule r = new Rule();
+		return r;
 	}
 }
