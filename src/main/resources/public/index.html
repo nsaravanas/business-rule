@@ -36,6 +36,7 @@
 	</form>
 	<br>
 	<br>
+	<br>
 
 	<form class="form-inline pull-right">
 		<div class="form-group">
@@ -45,13 +46,16 @@
 			</select>
 		</div>
 		<div class="btn-group btn-group-md">
-			<button type="button" class="btn btn-primary">
+			<button type="button" class="btn btn-primary" data-toggle="tooltip" title="New">
 				<span class="glyphicon glyphicon-floppy-disk"></span>
 			</button>
-			<button type="button" class="btn btn-primary">
+			<button type="button" class="btn btn-primary" data-toggle="tooltip" title="Edit">
+				<span class="glyphicon glyphicon-floppy-open"></span>
+			</button>
+			<button type="button" class="btn btn-primary" data-toggle="tooltip" title="Save">
 				<span class="glyphicon glyphicon-floppy-saved"></span>
 			</button>
-			<button type="button" class="btn btn-primary">
+			<button type="button" class="btn btn-primary" data-toggle="tooltip" title="Delete">
 				<span class="glyphicon glyphicon-floppy-remove"></span>
 			</button>
 		</div>
@@ -78,13 +82,13 @@
 							<a class="btn btn-primary" data-toggle="collapse" data-parent="#accordion" href="#collapse0"> <span
 								class="up-down glyphicon glyphicon-upload"></span>
 							</a>
-							<button type="button" class="btn btn-primary">
+							<button type="button" class="btn btn-primary" data-toggle="tooltip" title="Add">
 								<span class="glyphicon glyphicon-plus"></span>
 							</button>
-							<button type="button" class="btn btn-primary">
+							<button type="button" class="btn btn-primary" data-toggle="tooltip" title="Delete">
 								<span class="glyphicon glyphicon-minus"></span>
 							</button>
-							<button type="button" class="btn btn-primary">
+							<button type="button" class="btn btn-primary" data-toggle="tooltip" title="Save">
 								<span class="glyphicon glyphicon-ok-sign"></span>
 							</button>
 						</div>
@@ -265,6 +269,9 @@
 		}
 		$('.panel-group').on('hidden.bs.collapse', toggleIcon);
 		$('.panel-group').on('shown.bs.collapse', toggleIcon);
+		$(document).ready(function() {
+			$('[data-toggle="tooltip"]').tooltip();
+		});
 	</script>
 
 </body>
