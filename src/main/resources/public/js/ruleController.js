@@ -25,9 +25,11 @@ app
 								ruleService.saveRule(rule).then(
 									function(response){
 										 $scope.model.data = response.data;
-										 $scope.model.selected = response.data.name;
+										 $scope.model.selected = $scope.model.data.name;
+										 console.log('selected --> '+ $scope.model.selected);
 										 $("#saveAlert").fadeIn();
 										 $("#saveAlert").fadeOut(3000);
+										 setSelection(response.data.name);
 									}
 								).catch(function(error){
 									console.log(error);
@@ -91,6 +93,10 @@ app
 												});
 							};
 							
+							var setSelection = function(selection){
+								$scope.model.selected = selection;
+							};
+							
 							var reset = function(){
 								$scope.model = {
 										data : {},
@@ -152,6 +158,7 @@ app
 								if($scope.model.data.name != null){
 									saveRuleService(data);
 								}
+								console.log('save method end '+$scope.model.selected);
 							};
 
 							$scope.deleteRule = function() {								
