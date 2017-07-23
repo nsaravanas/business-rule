@@ -270,11 +270,13 @@
 						<h4 class="modal-title">Changes detected!</h4>
 					</div>
 					<div class="modal-body">
-						<p>You have unsaved changes, want to navigate?</p>
+						<p>You have unsaved changes, do want to save?</p>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Save</button>
-						<button type="button" class="btn btn-default" data-dismiss="modal">Discard</button>
+						<div class="btn-group">
+							<button type="button" data-dismiss="modal" class="btn btn-success" data-ng-click="save()">Save</button>
+							<button type="button" data-dismiss="modal" class="btn btn-warning">Discard</button>
+						</div>
 					</div>
 				</div>
 
@@ -292,24 +294,15 @@
 						<p>Do you really want to delete?</p>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Yes</button>
-						<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+						<div class="btn-group">
+							<button type="button" class="btn btn-default" data-dismiss="modal" data-ng-click="confirmedDelete()">Yes</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript">
-		/* 		function toggleIcon(e) {
-		 $(e.target).prev('.panel-heading').find(".up-down").toggleClass(
-		 'glyphicon-upload glyphicon-download');
-		 }
-		 $('.panel-group').on('hidden.bs.collapse', toggleIcon);
-		 $('.panel-group').on('shown.bs.collapse', toggleIcon);
-		 $(document).ready(function() {
-		 $('[data-toggle="tooltip"]').tooltip();
-		 }); */
-	</script>
 
 </body>
 </html>
