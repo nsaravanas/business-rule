@@ -107,7 +107,8 @@ app
 								}
 							}
 
-							$scope.save = function() {														
+							$scope.save = function() {
+								console.log('save method called');
 								var data = $scope.model.data;
 								ruleService
 										.saveRule(data)
