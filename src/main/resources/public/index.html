@@ -188,7 +188,7 @@
 							<div class="row">
 								<form class="form-inline">
 									<div class="form-group pull-right">
-										<label for="roles">Journal Helper </label> <select data-ng-model="model.data.jour_curr" class="form-control"
+										<label for="roles">Journal Helper </label> <select data-ng-model="model.jour_curr" class="form-control"
 											data-ng-change="setHelper('journal')">
 											<option data-ng-repeat="h in model.helpers">{{h.name}}</option>
 										</select>
@@ -232,7 +232,7 @@
 							<div class="row">
 								<form class="form-inline">
 									<div class="form-group pull-right">
-										<label for="roles">Control Helper </label> <select data-ng-model="model.data.cntl_curr" class="form-control"
+										<label for="roles">Control Helper </label> <select data-ng-model="model.cntl_curr" class="form-control"
 											data-ng-change="setHelper('control')">
 											<option data-ng-repeat="h in model.helpers">{{h.name}}</option>
 										</select>

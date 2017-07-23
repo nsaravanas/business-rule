@@ -24,18 +24,32 @@ app
 							var saveRuleService = function(rule) {
 								ruleService.saveRule(rule).then(
 									function(response){
-										 $scope.model.data = response.data;
-										 $scope.model.selected = $scope.model.data.name;
-										 console.log('selected --> '+ $scope.model.selected);
+										 initData(response.data);
+										 setSelection(response.data.name);
 										 $("#saveAlert").fadeIn();
 										 $("#saveAlert").fadeOut(3000);
-										 setSelection(response.data.name);
+										 loadRuleNames();
 									}
 								).catch(function(error){
 									console.log(error);
 									$("#failAlert").fadeIn();
 									$("#failAlert").fadeOut(3000);
 								});
+							};
+							
+							var initData = function(data){
+								 $scope.model.data = data;
+								 $scope.model.selected = $scope.model.data.name;
+								 if($scope.model.data.journalHelper != null){
+									 console.log('journal helper '+$scope.model.data.journalHelper.name);
+									 $scope.model.jour_curr = $scope.model.data.journalHelper.name;
+									 $scope.model.jour_prev = $scope.model.data.journalHelper.name;
+								 }
+								 if($scope.model.data.controlHelper != null){
+									 console.log('control helper '+$scope.model.data.controlHelper.name);
+									 $scope.model.cntl_curr = $scope.model.data.controlHelper.name;
+									 $scope.model.cntl_prev = $scope.model.data.controlHelper.name;
+								 }
 							};
 							
 							var deleteRuleService = function(ruleId){
@@ -52,17 +66,14 @@ app
 								});
 							};
 
-							var rule = function(name) {
-								ruleService.getRule(name).then(
-										function(response) {
-											$scope.model.data = response.data;
-										});
-							};
-
 							var loadRule = function(name) {
 								ruleService.getRule(name).then(
-										function(response) {
-											$scope.model.data = response.data;
+										function(response) {											
+											initData(response.data);
+										}).catch(function(error){
+											console.log(error);
+											$("#failAlert").fadeIn();
+											$("#failAlert").fadeOut(3000);
 										});
 							};
 							
@@ -94,6 +105,7 @@ app
 							};
 							
 							var setSelection = function(selection){
+								console.log('selectionz '+selection);
 								$scope.model.selected = selection;
 							};
 							
@@ -261,14 +273,14 @@ app
 							$scope.setHelper = function(type) {
 								var helpers = $scope.model.helpers;
 								if (type == 'journal') {
-									console.log('selection ' + $scope.model.data.jour_curr);
-									if ($scope.model.data.jour_curr == $scope.model.data.jour_prev) {
+									console.log('selection ' + $scope.model.jour_curr);
+									if ($scope.model.jour_curr == $scope.model.jour_prev) {
 										console.log('set helper matched');
 										return;
 									}
 									for (i = 0; i < helpers.length; i++) {
-										if ($scope.model.data.jour_curr == helpers[i].name) {
-											$scope.model.data.jour_prev = $scope.model.data.jour_curr;
+										if ($scope.model.jour_curr == helpers[i].name) {
+											$scope.model.jour_prev = $scope.model.jour_curr;
 											$scope.model.data.journalHelper = JSON.parse(JSON.stringify(helpers[i]));
 											console.log('selected '	+ helpers[i].name);
 										}
@@ -276,14 +288,14 @@ app
 									console.log('set helper end');
 								}
 								if (type == 'control') {
-									console.log('selection '+ $scope.model.data.cntl_curr);
-									if ($scope.model.data.cntl_curr == $scope.model.data.cntl_prev) {
+									console.log('selection '+ $scope.model.cntl_curr);
+									if ($scope.model.cntl_curr == $scope.model.cntl_prev) {
 										console.log('set helper matched');
 										return;
 									}
 									for (i = 0; i < helpers.length; i++) {
-										if ($scope.model.data.cntl_curr == helpers[i].name) {
-											$scope.model.data.cntl_prev = $scope.model.data.cntl_curr;
+										if ($scope.model.cntl_curr == helpers[i].name) {
+											$scope.model.cntl_prev = $scope.model.cntl_curr;
 											$scope.model.data.controlHelper = JSON.parse(JSON.stringify(helpers[i]));
 											console.log('selected '	+ helpers[i].name);
 										}
