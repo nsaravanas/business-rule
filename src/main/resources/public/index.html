@@ -30,8 +30,14 @@
 			<nav class="navbar navbar-inverse">
 				<div class="container-fluid">
 					<div class="navbar-header">
-						<a class="navbar-brand" href="#" style="color: white;">Drools rule maker</a>
+						<a class="navbar-brand" style="color: white;" href="#">Drools Rule Creator</a>
 					</div>
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="#" style="color: white;" data-ng-click="changeRole()" data-ng-model="model.user"><span
+								class="glyphicon glyphicon-user"></span> {{model.user}}</a></li>
+						<li><a href="#" style="color: white;" data-ng-click="downloadRule()" data-ng-model="model.user"><span
+								class="glyphicon glyphicon-download-alt"></span> Download</a></li>
+					</ul>
 				</div>
 			</nav>
 		</div>
@@ -47,15 +53,6 @@
 			</div>
 		</div>
 
-		<div class="row">
-			<form class="form-inline">
-				<div class="form-group pull-right">
-					<label for="roles">Role </label> <select id="roles" data-ng-model="model.user" class="form-control">
-						<option data-ng-repeat="n in model.types">{{n}}</option>
-					</select>
-				</div>
-			</form>
-		</div>
 		<br>
 
 		<div class="row">

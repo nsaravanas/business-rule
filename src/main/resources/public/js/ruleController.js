@@ -71,6 +71,21 @@ app
 												});
 							};
 
+							$scope.changeRole = function(){
+								var curr = $scope.model.user;
+								var types = $scope.model.types;
+								for(i = 0; i < types.length; i++){
+									if(types[i] != curr){
+										$scope.model.user = types[i];
+									}
+								};
+								console.log('role changed');
+							};
+							
+							$scope.downloadRule = function(){
+								console.log('download rule');
+							};
+							
 							$scope.reset = function() {
 								$scope.model.selected = {};
 							};
