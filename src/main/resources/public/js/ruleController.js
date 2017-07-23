@@ -83,6 +83,10 @@ app
 										.then(
 												function(response) {
 													$scope.model.conditions = response.data;
+												}).catch(function(error){
+													console.log(error);
+													$("#failAlert").fadeIn();
+													$("#failAlert").fadeOut(3000);
 												});
 							};
 
@@ -92,6 +96,10 @@ app
 										.then(
 												function(response) {
 													$scope.model.rulesname = response.data;
+												}).catch(function(error){
+													console.log(error);
+													$("#failAlert").fadeIn();
+													$("#failAlert").fadeOut(3000);
 												});
 							};
 
@@ -101,6 +109,10 @@ app
 										.then(
 												function(response) {
 													$scope.model.helpers = response.data;
+												}).catch(function(error){
+													console.log(error);
+													$("#failAlert").fadeIn();
+													$("#failAlert").fadeOut(3000);
 												});
 							};
 							
