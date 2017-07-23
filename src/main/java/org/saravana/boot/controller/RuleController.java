@@ -9,6 +9,7 @@ import org.saravana.boot.model.Rule;
 import org.saravana.boot.service.RuleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,8 +43,13 @@ public class RuleController {
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Rule saveRule(Rule rule) {
+	public Rule saveRule(@RequestBody Rule rule) {
 		return service.saveRule(rule);
+	}
+
+	@RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+	public void deleteRule(@RequestParam("ruleId") String name) {
+		service.deleteRule(name);
 	}
 
 	@RequestMapping(value = "/helpers", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

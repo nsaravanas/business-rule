@@ -51,9 +51,11 @@
 				<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a> <strong>Info!</strong> Rule has been
 				deleted.
 			</div>
+			<div class="alert alert-danger alert-dismissable" id="failAlert">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a> <strong>Error!</strong> Something went
+				wrong.
+			</div>
 		</div>
-
-		<br>
 
 		<div class="row">
 			<form class="form-inline">
@@ -61,13 +63,7 @@
 					<h2>{{model.data.name}}</h2>
 				</div>
 				<div class="btn-group btn-group-md pull-right">
-					<button type="button" class="btn btn-primary" data-toggle="tooltip" title="New" data-ng-click="createRule()">
-						<span class="glyphicon glyphicon-floppy-disk"></span>
-					</button>
-					<button type="button" class="btn btn-primary" data-toggle="tooltip" title="Edit" data-ng-click="editRule()">
-						<span class="glyphicon glyphicon-floppy-open"></span>
-					</button>
-					<button type="button" class="btn btn-primary" data-toggle="tooltip" title="Save" data-ng-click="save()">
+					<button type="button" class="btn btn-primary" data-toggle="tooltip" title="Save" data-ng-click="saveRule()">
 						<span class="glyphicon glyphicon-floppy-saved"></span>
 					</button>
 					<button type="button" class="btn btn-primary" data-toggle="tooltip" title="Delete" data-ng-click="deleteRule()">
@@ -75,7 +71,7 @@
 					</button>
 				</div>
 				<div class="form-group pull-right">
-					<select data-ng-model="model.selected" class="form-control" data-ng-change="updateRule()">
+					<select data-ng-model="model.selected" class="form-control" data-ng-change="changeRule()">
 						<option value="" disabled selected>Select rule</option>
 						<option data-ng-repeat="n in model.rulesname">{{n}}</option>
 					</select>
@@ -101,7 +97,7 @@
 							<button type="button" class="btn btn-primary" data-toggle="tooltip" title="Delete">
 								<span class="glyphicon glyphicon-minus"></span>
 							</button>
-							<button type="button" class="btn btn-primary" data-toggle="tooltip" title="Save" data-ng-click="save()">
+							<button type="button" class="btn btn-primary" data-toggle="tooltip" title="Save" data-ng-click="saveRule()">
 								<span class="glyphicon glyphicon-ok-sign"></span>
 							</button>
 						</div>
@@ -114,8 +110,8 @@
 										class="form-control input-sm" id="text" data-ng-readonly="model.user == 'Developer'">
 								</div>
 								<div class="form-group form-group-sm">
-									<label for="pwd">Rule ID</label> <input data-ng-model="model.data.id" type="text" class="form-control input-sm"
-										id="text" data-ng-readonly="model.user == 'Developer'">
+									<label for="pwd">Rule ID</label> <input data-ng-model="model.data.id" type="number"
+										class="form-control input-sm" id="text" data-ng-readonly="model.user == 'Developer'">
 								</div>
 							</form>
 						</div>
@@ -139,7 +135,7 @@
 								data-ng-click="deleteRow('criteria')">
 								<span class="glyphicon glyphicon-minus"></span>
 							</button>
-							<button type="button" class="btn btn-primary" data-toggle="tooltip" title="Save" data-ng-click="save()">
+							<button type="button" class="btn btn-primary" data-toggle="tooltip" title="Save" data-ng-click="saveRule()">
 								<span class="glyphicon glyphicon-ok-sign"></span>
 							</button>
 						</div>
@@ -173,10 +169,19 @@
 					</div>
 				</div>
 				<div class="panel panel-primary">
-					<div class="panel-heading">
-						<h4 class="panel-title">
-							<a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Journal Data</a>
-						</h4>
+					<div class="panel-heading clearfix">
+						<div class="panel-title pull-left">
+							<a class="form-control-static input-md col-centered" data-toggle="collapse" data-parent="#accordion"
+								href="#collapse2">Journal Data</a>
+						</div>
+						<div class="btn-group btn-group-sm pull-right">
+							<a class="btn btn-primary" data-toggle="collapse" data-parent="#accordion" href="#collapse2"> <span
+								class="up-down glyphicon glyphicon-download"></span>
+							</a>
+							<button type="button" class="btn btn-primary" data-toggle="tooltip" title="Save" data-ng-click="saveRule()">
+								<span class="glyphicon glyphicon-ok-sign"></span>
+							</button>
+						</div>
 					</div>
 					<div id="collapse2" class="panel-collapse collapse">
 						<div class="panel-body">
@@ -208,10 +213,19 @@
 					</div>
 				</div>
 				<div class="panel panel-primary">
-					<div class="panel-heading">
-						<h4 class="panel-title">
-							<a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Control Data</a>
-						</h4>
+					<div class="panel-heading clearfix">
+						<div class="panel-title pull-left">
+							<a class="form-control-static input-md col-centered" data-toggle="collapse" data-parent="#accordion"
+								href="#collapse3">Control Data</a>
+						</div>
+						<div class="btn-group btn-group-sm pull-right">
+							<a class="btn btn-primary" data-toggle="collapse" data-parent="#accordion" href="#collapse3"> <span
+								class="up-down glyphicon glyphicon-download"></span>
+							</a>
+							<button type="button" class="btn btn-primary" data-toggle="tooltip" title="Save" data-ng-click="saveRule()">
+								<span class="glyphicon glyphicon-ok-sign"></span>
+							</button>
+						</div>
 					</div>
 					<div id="collapse3" class="panel-collapse collapse">
 						<div class="panel-body">

@@ -19,6 +19,16 @@ app.service('ruleService', function($http) {
 		});
 	};
 
+	this.deleteRule = function(ruleId) {
+		return $http({
+			method : 'DELETE',
+			url : '/delete',
+			params : {
+				'ruleId' : ruleId
+			}
+		});
+	};
+
 	this.getRules = function() {
 		return $http({
 			method : 'GET',

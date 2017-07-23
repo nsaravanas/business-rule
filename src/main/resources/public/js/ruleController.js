@@ -21,21 +21,34 @@ app
 								cntl_prev : null
 							};
 
-							var createRuleService = function(rule) {
-								ruleService.createRule(rule).then({
+							var saveRuleService = function(rule) {
+								ruleService.saveRule(rule).then(
 									function(response){
-										$scope.model.data = response.data;
+										 $scope.model.data = response.data;
+										 $scope.model.selected = response.data.name;
+										 $("#saveAlert").fadeIn();
+										 $("#saveAlert").fadeOut(3000);
 									}
+								).catch(function(error){
+									console.log(error);
+									$("#failAlert").fadeIn();
+									$("#failAlert").fadeOut(3000);
 								});
 							};
 							
-							var deleteRuleService = function(rule){
-								ruleService.deleteRule(rule).then({
+							var deleteRuleService = function(ruleId){
+								ruleService.deleteRule(ruleId).then(
 									function(response){
-										$scope.model.data = response.data;
+										$("#deleteAlert").fadeIn();
+										$("#deleteAlert").fadeOut(3000);
+										reset();							
 									}
-								});								
-							}
+								).catch(function(error){
+									console.log(error);
+									$("#failAlert").fadeIn();
+									$("#failAlert").fadeOut(3000);
+								});
+							};
 
 							var rule = function(name) {
 								ruleService.getRule(name).then(
@@ -44,6 +57,13 @@ app
 										});
 							};
 
+							var loadRule = function(name) {
+								ruleService.getRule(name).then(
+										function(response) {
+											$scope.model.data = response.data;
+										});
+							};
+							
 							var loadConditions = function() {
 								ruleService
 										.getConditions()
@@ -70,6 +90,25 @@ app
 													$scope.model.helpers = response.data;
 												});
 							};
+							
+							var reset = function(){
+								$scope.model = {
+										data : {},
+										selected : null,
+										conditions : [],
+										types : [ 'Developer', 'Business Analyst' ],
+										user : 'Business Analyst',
+										rulesname : [],
+										helpers : [],
+										jour_curr : null,
+										jour_prev : null,
+										cntl_curr : null,
+										cntl_prev : null
+									};
+								loadConditions();
+								loadRuleNames();
+								loadHelper();
+							};
 
 							$scope.changeRole = function(){
 								var curr = $scope.model.user;
@@ -86,26 +125,18 @@ app
 								console.log('download rule');
 							};
 							
-							$scope.reset = function() {
-								$scope.model.selected = {};
-							};
-
 							$scope.saveFields = function() {
 								var rule = $scope.model.data;
 								save(rule);
 								console.log('save field end');
 							};
 
-							$scope.reload = function(type) {
-								console.log(type + '--->' + $scope.model.user);
-							};
-
-							$scope.updateRule = function() {
-								console.log('update rule method');
+							$scope.changeRule = function() {
+								console.log('change rule method');
 								if ($scope.model.selected != null) {
-									rule($scope.model.selected);
+									loadRule($scope.model.selected);
 								}
-							}
+							};
 
 							$scope.createRule = function() {								
 								console.log('create rule method');
@@ -113,44 +144,28 @@ app
 									$("#unsavedChanges").modal();
 								}
 								$scope.model.data = {};
-							}
+							};
 
-							$scope.editRule = function() {
-								console.log('update rule method');
-								if ($scope.model.selected != null) {
-									rule($scope.model.selected);
-								}
-							}
-
-							$scope.save = function() {
+							$scope.saveRule = function() {
 								console.log('save method called');
 								var data = $scope.model.data;
-								ruleService
-										.saveRule(data)
-										.then(
-												function(response) {
-													$scope.model.data = response.data;
-													$scope.model.selected = response.data.name;
-													loadRuleNames();
-												});
-								$("#saveAlert").fadeIn();
-								$("#saveAlert").fadeOut(2000);
-							}
+								if($scope.model.data.name != null){
+									saveRuleService(data);
+								}
+							};
 
 							$scope.deleteRule = function() {								
 								if ($scope.model.selected != null) {
 									$("#deleteConfirm").modal();
 								}
-							}
+							};
 
 							$scope.confirmedDelete = function() {
 								console.log('delete rule method');
 								if ($scope.model.selected != null) {
-									rule($scope.model.selected);
-									$("#deleteAlert").fadeIn();
-									$("#deleteAlert").fadeOut(2000);
-								}
-							}
+									deleteRuleService($scope.model.selected);
+								};
+							};
 
 							$scope.confirmedCreate = function() {
 								console.log('create rule method');
@@ -158,7 +173,7 @@ app
 									$scope.model.selected = null;
 									$scope.model.data = {};
 								}
-							}
+							};
 
 							$scope.deleteRow = function(type, idx) {
 								var rule = $scope.model.data;
@@ -179,7 +194,7 @@ app
 									}
 									break;
 								}
-							}
+							};
 
 							$scope.deleteRow = function(type) {
 								var rule = $scope.model.data;
@@ -239,8 +254,7 @@ app
 							$scope.setHelper = function(type) {
 								var helpers = $scope.model.helpers;
 								if (type == 'journal') {
-									console.log('selection '
-											+ $scope.model.data.jour_curr);
+									console.log('selection ' + $scope.model.data.jour_curr);
 									if ($scope.model.data.jour_curr == $scope.model.data.jour_prev) {
 										console.log('set helper matched');
 										return;
@@ -248,16 +262,14 @@ app
 									for (i = 0; i < helpers.length; i++) {
 										if ($scope.model.data.jour_curr == helpers[i].name) {
 											$scope.model.data.jour_prev = $scope.model.data.jour_curr;
-											$scope.model.data.journalHelper = helpers[i];
-											console.log('selected '
-													+ helpers[i].name);
+											$scope.model.data.journalHelper = JSON.parse(JSON.stringify(helpers[i]));
+											console.log('selected '	+ helpers[i].name);
 										}
 									}
 									console.log('set helper end');
 								}
 								if (type == 'control') {
-									console.log('selection '
-											+ $scope.model.data.cntl_curr);
+									console.log('selection '+ $scope.model.data.cntl_curr);
 									if ($scope.model.data.cntl_curr == $scope.model.data.cntl_prev) {
 										console.log('set helper matched');
 										return;
@@ -265,15 +277,13 @@ app
 									for (i = 0; i < helpers.length; i++) {
 										if ($scope.model.data.cntl_curr == helpers[i].name) {
 											$scope.model.data.cntl_prev = $scope.model.data.cntl_curr;
-											$scope.model.data.controlHelper = helpers[i];
-											console.log('selected '
-													+ helpers[i].name);
+											$scope.model.data.controlHelper = JSON.parse(JSON.stringify(helpers[i]));
+											console.log('selected '	+ helpers[i].name);
 										}
 									}
 									console.log('set helper end');
 								}
-								console.log(JSON
-										.stringify($scope.model.helpers));
+								console.log(JSON.stringify($scope.model.helpers));
 							};
 
 							function toggleIcon(e) {
