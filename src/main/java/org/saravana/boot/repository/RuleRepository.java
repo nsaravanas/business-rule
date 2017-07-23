@@ -19,7 +19,7 @@ public class RuleRepository {
 	private List<Rule> rules = new ArrayList<>();
 
 	public Rule findOneByRuleName(String name) {
-		return rules.stream().findFirst().get();
+		return rules.get(0);
 	}
 
 	public List<Rule> findAll() {
@@ -39,8 +39,7 @@ public class RuleRepository {
 	}
 
 	public Rule save(Rule rule) {
-		rules.add(rule);
-		return rule;
+		return rules.get(0);
 	}
 
 }

@@ -21,6 +21,22 @@ app
 								cntl_prev : null
 							};
 
+							var createRuleService = function(rule) {
+								ruleService.createRule(rule).then({
+									function(response){
+										$scope.model.data = response.data;
+									}
+								});
+							};
+							
+							var deleteRuleService = function(rule){
+								ruleService.deleteRule(rule).then({
+									function(response){
+										$scope.model.data = response.data;
+									}
+								});								
+							}
+
 							var rule = function(name) {
 								ruleService.getRule(name).then(
 										function(response) {
@@ -37,7 +53,7 @@ app
 												});
 							};
 
-							var rulesname = function() {
+							var loadRuleNames = function() {
 								ruleService
 										.getRulesName()
 										.then(
@@ -46,7 +62,7 @@ app
 												});
 							};
 
-							var helpers = function() {
+							var loadHelper = function() {
 								ruleService
 										.getHelpers()
 										.then(
@@ -76,8 +92,11 @@ app
 								}
 							}
 
-							$scope.createRule = function() {
+							$scope.createRule = function() {								
 								console.log('create rule method');
+								if ($scope.model.selected != null) {
+									$("#unsavedChanges").modal();
+								}
 								$scope.model.data = {};
 							}
 
@@ -88,7 +107,7 @@ app
 								}
 							}
 
-							$scope.save = function() {
+							$scope.save = function() {														
 								var data = $scope.model.data;
 								ruleService
 										.saveRule(data)
@@ -96,14 +115,32 @@ app
 												function(response) {
 													$scope.model.data = response.data;
 													$scope.model.selected = response.data.name;
-													rulesname();
+													loadRuleNames();
 												});
+								$("#saveAlert").fadeIn();
+								$("#saveAlert").fadeOut(2000);
 							}
 
-							$scope.deleteRule = function() {
+							$scope.deleteRule = function() {								
+								if ($scope.model.selected != null) {
+									$("#deleteConfirm").modal();
+								}
+							}
+
+							$scope.confirmedDelete = function() {
 								console.log('delete rule method');
 								if ($scope.model.selected != null) {
 									rule($scope.model.selected);
+									$("#deleteAlert").fadeIn();
+									$("#deleteAlert").fadeOut(2000);
+								}
+							}
+
+							$scope.confirmedCreate = function() {
+								console.log('create rule method');
+								if ($scope.model.selected != null) {
+									$scope.model.selected = null;
+									$scope.model.data = {};
 								}
 							}
 
@@ -184,7 +221,6 @@ app
 							};
 
 							$scope.setHelper = function(type) {
-
 								var helpers = $scope.model.helpers;
 								if (type == 'journal') {
 									console.log('selection '
@@ -220,10 +256,28 @@ app
 									}
 									console.log('set helper end');
 								}
+								console.log(JSON
+										.stringify($scope.model.helpers));
 							};
 
+							function toggleIcon(e) {
+								$(e.target).prev('.panel-heading').find(
+										".up-down").toggleClass(
+										'glyphicon-upload glyphicon-download');
+							}
+
+							$('.panel-group').on('hidden.bs.collapse',
+									toggleIcon);
+
+							$('.panel-group').on('shown.bs.collapse',
+									toggleIcon);
+
+							$(document).ready(function() {
+								$('[data-toggle="tooltip"]').tooltip();
+							});
+							
 							loadConditions();
-							rulesname();
-							helpers();
+							loadRuleNames();
+							loadHelper();
 
 						} ]);

@@ -60,7 +60,24 @@ public class RuleService {
 		f10.setName("rule id");
 		List<Field> fields2 = Arrays.asList(f6, f7, f8, f9, f10);
 		h2.setFields(fields2);
-		return Arrays.asList(h1, h2);
+
+		Helper h3 = new Helper();
+		h3.setName("ControlCreationHelper");
+		h3.setClaz("org.saravana.helper.ControlCreationHelper.createControl");
+		Field f11 = new Field();
+		f11.setName("event");
+		Field f12 = new Field();
+		f12.setName("account reference");
+		Field f13 = new Field();
+		f13.setName("quantity");
+		Field f14 = new Field();
+		f14.setName("rule type");
+		Field f15 = new Field();
+		f15.setName("rule id");
+		List<Field> fields3 = Arrays.asList(f11, f12, f13, f14, f15);
+		h3.setFields(fields3);
+
+		return Arrays.asList(h1, h2, h3);
 	}
 
 }
