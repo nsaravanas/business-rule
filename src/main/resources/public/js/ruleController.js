@@ -22,7 +22,6 @@ app
 							};
 
 							var downloadRuleService = function(ruleId){
-								console.log('download cntl');
 								ruleService.downloadRule(ruleId).then(
 									function(response){
 											$("downloadAlert").fadeIn();
@@ -53,12 +52,10 @@ app
 								 $scope.model.data = data;
 								 $scope.model.selected = $scope.model.data.name;
 								 if($scope.model.data.journalHelper != null){
-									 console.log('journal helper '+$scope.model.data.journalHelper.name);
 									 $scope.model.jour_curr = $scope.model.data.journalHelper.name;
 									 $scope.model.jour_prev = $scope.model.data.journalHelper.name;
 								 }
 								 if($scope.model.data.controlHelper != null){
-									 console.log('control helper '+$scope.model.data.controlHelper.name);
 									 $scope.model.cntl_curr = $scope.model.data.controlHelper.name;
 									 $scope.model.cntl_prev = $scope.model.data.controlHelper.name;
 								 }
@@ -129,7 +126,6 @@ app
 							};
 							
 							var setSelection = function(selection){
-								console.log('selectionz '+selection);
 								$scope.model.selected = selection;
 							};
 							
@@ -190,7 +186,6 @@ app
 								if($scope.model.data.name != null){
 									saveRuleService(data);
 								}
-								console.log('save method end '+$scope.model.selected);
 							};
 
 							$scope.deleteRule = function() {								
@@ -309,7 +304,6 @@ app
 										if ($scope.model.jour_curr == helpers[i].name) {
 											$scope.model.jour_prev = $scope.model.jour_curr;
 											$scope.model.data.journalHelper = JSON.parse(JSON.stringify(helpers[i]));
-											console.log('selected '	+ helpers[i].name);
 										}
 									}
 									console.log('set helper end');
@@ -324,12 +318,10 @@ app
 										if ($scope.model.cntl_curr == helpers[i].name) {
 											$scope.model.cntl_prev = $scope.model.cntl_curr;
 											$scope.model.data.controlHelper = JSON.parse(JSON.stringify(helpers[i]));
-											console.log('selected '	+ helpers[i].name);
 										}
 									}
 									console.log('set helper end');
 								}
-								console.log(JSON.stringify($scope.model.helpers));
 							};
 
 							function toggleIcon(e) {
