@@ -26,9 +26,13 @@ app
 									function(response){
 											$("downloadAlert").fadeIn();
 											$("downloadAlert").fadeOut(3000);
+											var data = response.data;
+								        	var blob = new Blob([data], { type: 'text/plain' });
+								        	var url = $window.URL || $window.webkitURL;
+											return url.createObjectURL(blob);							
 										}).catch(function(error){
-											$("#failAlert").fadeIn();
-											$("#failAlert").fadeOut(3000);									
+											$("#downloadFail").fadeIn();
+											$("#downloadFail").fadeOut(3000);									
 									});
 							};
 							
