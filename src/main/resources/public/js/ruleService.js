@@ -29,6 +29,17 @@ app.service('ruleService', function($http) {
 		});
 	};
 
+	this.downloadRule = function(ruleId) {
+		console.log('download service call');
+		return $http({
+			method : 'GET',
+			url : '/download',
+			params : {
+				'ruleId' : ruleId
+			}
+		});
+	};
+
 	this.getRules = function() {
 		return $http({
 			method : 'GET',

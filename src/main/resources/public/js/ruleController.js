@@ -21,6 +21,18 @@ app
 								cntl_prev : null
 							};
 
+							var downloadRuleService = function(ruleId){
+								console.log('download cntl');
+								ruleService.downloadRule(ruleId).then(
+									function(response){
+											$("downloadAlert").fadeIn();
+											$("downloadAlert").fadeOut(3000);
+										}).catch(function(error){
+											$("#failAlert").fadeIn();
+											$("#failAlert").fadeOut(3000);									
+									});
+							};
+							
 							var saveRuleService = function(rule) {
 								ruleService.saveRule(rule).then(
 									function(response){
@@ -150,11 +162,7 @@ app
 								};
 								console.log('role changed');
 							};
-							
-							$scope.downloadRule = function(){
-								console.log('download rule');
-							};
-							
+				
 							$scope.saveFields = function() {
 								var rule = $scope.model.data;
 								save(rule);
@@ -191,6 +199,13 @@ app
 								}
 							};
 
+							$scope.downloadRule = function(){
+								console.log('download rule method');
+								if ($scope.model.data.name != null) {
+									downloadRuleService($scope.model.selected);
+								};
+							};
+							
 							$scope.confirmedDelete = function() {
 								console.log('delete rule method');
 								if ($scope.model.selected != null) {

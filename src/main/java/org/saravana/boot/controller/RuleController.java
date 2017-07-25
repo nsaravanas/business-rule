@@ -1,5 +1,8 @@
 package org.saravana.boot.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -8,7 +11,11 @@ import org.saravana.boot.model.Helper;
 import org.saravana.boot.model.Rule;
 import org.saravana.boot.service.RuleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -60,5 +67,18 @@ public class RuleController {
 	public Rule createRule() {
 		Rule r = new Rule();
 		return r;
+	}
+
+	@RequestMapping(value = "/download", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Resource> download(@RequestParam String name, HttpRequest request) throws IOException {
+		Rule r = getRule(name);
+		File f = createFile(r);
+		InputStreamResource resource = new InputStreamResource(new FileInputStream(f));
+		return ResponseEntity.ok().headers(request.getHeaders()).contentLength(f.length())
+				.contentType(MediaType.parseMediaType("application/octet-stream")).body(resource);
+	}
+
+	private File createFile(Rule rule) {
+		return new File("test");
 	}
 }

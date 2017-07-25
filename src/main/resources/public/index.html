@@ -35,7 +35,7 @@
 					<ul class="nav navbar-nav navbar-right">
 						<li><a href="#" style="color: white;" data-ng-click="changeRole()" data-ng-model="model.user"><span
 								class="glyphicon glyphicon-user"></span> {{model.user}}</a></li>
-						<li><a href="#" style="color: white;" data-ng-click="downloadRule()" data-ng-model="model.user"><span
+						<li><a href="#" style="color: white;" data-ng-click="downloadRule()"><span
 								class="glyphicon glyphicon-download-alt"></span> Download</a></li>
 					</ul>
 				</div>
@@ -50,6 +50,10 @@
 			<div class="alert alert-info alert-dismissable" id="deleteAlert">
 				<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a> <strong>Info!</strong> Rule has been
 				deleted.
+			</div>
+			<div class="alert alert-info alert-dismissable" id="downloadAlert">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a> <strong>Info!</strong> Download will begin
+				in few seconds.
 			</div>
 			<div class="alert alert-danger alert-dismissable" id="failAlert">
 				<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a> <strong>Error!</strong> Something went
