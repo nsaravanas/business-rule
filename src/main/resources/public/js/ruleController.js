@@ -29,8 +29,7 @@ app
 											var downloadLink = angular.element('<a></a>');
 								            downloadLink.attr('href',window.URL.createObjectURL(blob));
 								            downloadLink.attr('download', ruleId+'.drl');
-											downloadLink[0].click();
-											
+											downloadLink[0].click();											
 										}).catch(function(error){
 											$("#downloadFail").fadeIn();
 											$("#downloadFail").fadeOut(3000);									
@@ -202,8 +201,8 @@ app
 							$scope.downloadRule = function(){
 								console.log('download rule method');
 								if ($scope.model.data.name != null) {
-									$("downloadAlert").fadeIn();
-									$("downloadAlert").fadeOut(3000);
+									$("#downloadAlert").fadeIn();
+									$("#downloadAlert").fadeOut(3000);
 									downloadRuleService($scope.model.selected);
 								};
 							};

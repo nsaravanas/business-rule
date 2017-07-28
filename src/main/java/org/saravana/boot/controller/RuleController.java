@@ -65,8 +65,9 @@ public class RuleController {
 	}
 
 	@RequestMapping(value = "/download", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, String> exportToDrl(@RequestParam("ruleId") String name) {
+	public Map<String, String> exportToDrl(@RequestParam("ruleId") String name) throws InterruptedException {
 		// Rule r = getRule(name);
+		Thread.sleep(1000);
 		final String data = "test rule file";
 		final Map<String, String> response = new LinkedHashMap<>();
 		response.put("drl", data);
