@@ -24,12 +24,13 @@ app
 							var downloadRuleService = function(ruleId){
 								ruleService.downloadRule(ruleId).then(
 									function(response){
-											$("downloadAlert").fadeIn();
-											$("downloadAlert").fadeOut(3000);
-											var data = response.data;
-								        	var blob = new Blob([data], { type: 'text/plain' });
-								        	var url = $window.URL || $window.webkitURL;
-											return url.createObjectURL(blob);							
+											var data = response.data.drl;
+								        	var blob = new Blob([data], { type: 'text/plain' });					        		
+											var downloadLink = angular.element('<a></a>');
+								            downloadLink.attr('href',window.URL.createObjectURL(blob));
+								            downloadLink.attr('download', ruleId+'.drl');
+											downloadLink[0].click();
+											
 										}).catch(function(error){
 											$("#downloadFail").fadeIn();
 											$("#downloadFail").fadeOut(3000);									
@@ -201,6 +202,8 @@ app
 							$scope.downloadRule = function(){
 								console.log('download rule method');
 								if ($scope.model.data.name != null) {
+									$("downloadAlert").fadeIn();
+									$("downloadAlert").fadeOut(3000);
 									downloadRuleService($scope.model.selected);
 								};
 							};
