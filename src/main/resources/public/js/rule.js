@@ -1,1 +1,1 @@
-var app = angular.module('rule', [ 'ngMessages', 'ngMaterial' ]);
+var app = angular.module('rule', [ 'ngMessages' ]);

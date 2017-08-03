@@ -1,11 +1,14 @@
 package org.saravana.boot.service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.saravana.boot.model.Condition;
 import org.saravana.boot.model.Field;
 import org.saravana.boot.model.Helper;
+import org.saravana.boot.model.MatchCriteria;
 import org.saravana.boot.model.Rule;
 import org.saravana.boot.model.RuleData;
 import org.saravana.boot.repository.RuleDataRepository;
@@ -94,6 +97,66 @@ public class RuleService {
 
 	public void deleteRule(String name) {
 		dataRepository.delete(name);
+	}
+
+	public List<String> generateDRL(String name) {
+		Rule rule = getRuleByName(name);
+
+		List<String> header = new ArrayList<>();
+		header.add("//Generated using DRL Generator v1.0.0");
+		header.add("//author " + System.getProperty("user.name"));
+		header.add("name(" + rule.getName() + ")");
+
+		List<String> journalInsert = new ArrayList<>();
+		journalInsert.add("insert($journal);");
+
+		List<String> controlInsert = new ArrayList<>();
+		controlInsert.add("insert($control);");
+
+		List<String> matcher = new ArrayList<>();
+		matcher.addAll(buildMatcher(rule));
+
+		List<String> journal = new ArrayList<>();
+		journal.addAll(buildJournal(rule));
+
+		List<String> control = new ArrayList<>();
+		control.addAll(buildControl(rule));
+
+		List<String> packages = new ArrayList<>();
+		packages.addAll(buildPackages(rule));
+
+		List<List<String>> lol = Arrays.asList(header, matcher, journal, journalInsert, control, controlInsert);
+
+		return lol.stream().flatMap(List::stream).collect(Collectors.toList());
+	}
+
+	private List<String> buildPackages(Rule rule) {
+		return Arrays.asList("TODO");
+	}
+
+	private List<String> buildControl(Rule rule) {
+		return Arrays.asList("TODO");
+	}
+
+	private List<String> buildJournal(Rule rule) {
+		return Arrays.asList("TODO");
+	}
+
+	private List<String> buildMatcher(Rule rule) {
+		MatchCriteria criteria = rule.getCriteria();
+		List<Field> fields = criteria.getFields();
+		StringBuilder builder = new StringBuilder();
+		builder.append("Event : $event ( ");
+		for (Field field : fields) {
+			String name = field.getField();
+			builder.append(name + " ");
+			Condition cond = field.getCondition();
+			builder.append(cond + " ");
+			String value = field.getValue();
+			builder.append(value + " ");
+		}
+		builder.append(" )");
+		return Arrays.asList(builder.toString());
 	}
 
 }
