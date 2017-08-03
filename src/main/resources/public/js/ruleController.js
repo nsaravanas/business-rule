@@ -32,7 +32,7 @@ app
 											downloadLink[0].click();											
 										}).catch(function(error){
 											$("#downloadFail").fadeIn();
-											$("#downloadFail").fadeOut(3000);									
+											$("#downloadFail").fadeOut(4000);									
 									});
 							};
 							
@@ -42,13 +42,13 @@ app
 										 initData(response.data);
 										 setSelection(response.data.name);
 										 $("#saveAlert").fadeIn();
-										 $("#saveAlert").fadeOut(3000);
+										 $("#saveAlert").fadeOut(4000);
 										 loadRuleNames();
 									}
 								).catch(function(error){
 									console.log(error);
 									$("#failAlert").fadeIn();
-									$("#failAlert").fadeOut(3000);
+									$("#failAlert").fadeOut(4000);
 								});
 							};
 							
@@ -69,13 +69,13 @@ app
 								ruleService.deleteRule(ruleId).then(
 									function(response){
 										$("#deleteAlert").fadeIn();
-										$("#deleteAlert").fadeOut(3000);
+										$("#deleteAlert").fadeOut(4000);
 										reset();							
 									}
 								).catch(function(error){
 									console.log(error);
 									$("#failAlert").fadeIn();
-									$("#failAlert").fadeOut(3000);
+									$("#failAlert").fadeOut(4000);
 								});
 							};
 
@@ -86,7 +86,7 @@ app
 										}).catch(function(error){
 											console.log(error);
 											$("#failAlert").fadeIn();
-											$("#failAlert").fadeOut(3000);
+											$("#failAlert").fadeOut(4000);
 										});
 							};
 							
@@ -99,7 +99,7 @@ app
 												}).catch(function(error){
 													console.log(error);
 													$("#failAlert").fadeIn();
-													$("#failAlert").fadeOut(3000);
+													$("#failAlert").fadeOut(4000);
 												});
 							};
 
@@ -112,7 +112,7 @@ app
 												}).catch(function(error){
 													console.log(error);
 													$("#failAlert").fadeIn();
-													$("#failAlert").fadeOut(3000);
+													$("#failAlert").fadeOut(4000);
 												});
 							};
 
@@ -125,7 +125,7 @@ app
 												}).catch(function(error){
 													console.log(error);
 													$("#failAlert").fadeIn();
-													$("#failAlert").fadeOut(3000);
+													$("#failAlert").fadeOut(4000);
 												});
 							};
 							
@@ -202,7 +202,7 @@ app
 								console.log('download rule method');
 								if ($scope.model.data.name != null) {
 									$("#downloadAlert").fadeIn();
-									$("#downloadAlert").fadeOut(3000);
+									$("#downloadAlert").fadeOut(4000);
 									downloadRuleService($scope.model.selected);
 								};
 							};
